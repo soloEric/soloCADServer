@@ -1,0 +1,176 @@
+{
+    "inverters": [
+        {
+            "name": "SolarEdge SE3000H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE3800H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE5000H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE6000H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE7600H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE10000H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE11400H-US (240V)",
+            "resource": "solaredge_hd_wave_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE7600A-US (240V)",
+            "resource": "solaredge_non-hd_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE10000A-US (240V)",
+            "resource": "solaredge_non-hd_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge SE11400A-US (240V)",
+            "resource": "solaredge_non-hd_inverters.pdf"
+        },
+        {
+            "name": "SolarEdge StorEdge SE3800A-US (240V)",
+            "resource": "storedge_opt_lg_chem.pdf"
+        },
+        {
+            "name": "SolarEdge StorEdge SE7600A-US (240V)",
+            "resource": "storedge_opt_lg_chem.pdf"
+        },
+        {
+            "name": "SolarEdge SE3800H-US (240V) EV Charger",
+            "resource": "solaredge_se3800_7600h-us_ev_charger.pdf"
+        },
+        {
+            "name": "SolarEdge SE7600H-US (240V) EV Charger",
+            "resource": "solaredge_se3800_7600h-us_ev_charger.pdf"
+        },
+        {
+            "name": "Enphase IQ6-60-2-US",
+            "resource": "enphase_iq6_iq6plus.pdf"
+        },
+        {
+            "name": "Enphase IQ6PLUS-72-2-US",
+            "resource": "enphase_iq6_iq6plus.pdf"
+        },
+        {
+            "name": "Enphase IQ7-60-2-US",
+            "resource": "enphase_iq7_iq7plus.pdf"
+        },
+        {
+            "name": "Enphase IQ7PLUS-72-2-US",
+            "resource": "enphase_iq7_iq7plus.pdf"
+        },
+        {
+            "name": "Enphase IQ7X-96-2-US",
+            "resource": "enphase_iq7x.pdf"
+        },
+        {
+            "name": "Enphase IQ7XS-96-ACM-US",
+            "resource": "sunpower_327_iq7xs.pdf"
+        },
+        {
+            "name": "Fronius Primo 3.8-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 5.0-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 6.0-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 7.6-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 8.2-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 10.0-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 11.4-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 12.5-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "Fronius Primo 15.0-1",
+            "resource": "fronius_primo_3.8_5.0_6.0_7.6_8.2_10.0_11.4_12.5_15.0.pdf"
+        },
+        {
+            "name": "AP Systems QS1",
+            "resource": "ap_systems-qs1.pdf"
+        },
+        {
+            "name": "AP Systems YC600",
+            "resource": "ap_systems_yc600.pdf"
+        },
+        {
+            "name": "AP Systems YC500i",
+            "resource": "ap_systems_YC500i.pdf"
+        },
+        {
+            "name": "Hoymiles MI-1000",
+            "resource": "hoymile_mi-1000_1200.pdf"
+        },
+        {
+            "name": "Hoymiles MI-1200",
+            "resource": "hoymile_mi-1000_1200.pdf"
+        },
+        {
+            "name": "Chilicon CP-250E",
+            "resource": "C:\\spec_sheets\\"
+        },
+        {
+            "name": "Chilicon CP-720",
+            "resource": "C:\\spec_sheets\\"
+        },
+        {
+            "name": "SMA Sunny Boy 3.0-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "SMA Sunny Boy 3.8-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "SMA Sunny Boy 5.0-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "SMA Sunny Boy 6.0-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "SMA Sunny Boy 7.0-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "SMA Sunny Boy 7.7-US",
+            "resource": "sma_sunny_boy_inverters.pdf"
+        },
+        {
+            "name": "Pika X7602/X11402",
+            "resource": "pika_x7602_x11402_inverter.pdf"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+TO DO:
+- pull string sizes in      # done
+- pull qty of strings in    # done
+
+- multiple solaredge inverters:
+-- need to have individual tags for different inverter modules (ie; 2 different solaredge inverters)
+-- need to have individual values for each inverter (ratings)
+-- should build out to 3 string inverters, minimum (we have had 3 inverter jobs and they are dumb)
+
+---- maybe we make a function that checks for solaredge, with a quantity of inverters greater 
+     than 1, and pulls in a new dataframe, with all that info (Jake likes this idea)
+     
+     we could simply append our current dataframe (in excel) with inverter_2 and inverter_3 data,
+     and if those cells are blank then the python script will just ignore them
+     
+     yeah, just makes it a hella long boi ya kno?
+     
+     maybe we just pull in 200 values every time and ignore empty values idk bro
+     
+ - How to handle derates:
+ -- Need load calcs fed into derate function
+ -- should derate calcs be handled in Excel or Python?
+

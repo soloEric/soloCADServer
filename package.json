@@ -1,0 +1,23 @@
+{
+    "name": "expressserver",
+    "version": "1.0.0",
+    "description": "node server for interfacing with CAD tasks, creating a scalable solution to automating tasks and limiting local updates to templates",
+    "main": "expressServer.js",
+    "author": "Eric Larson",
+    "scripts": {
+        "test": "mocha --reporter spec"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "adm-zip": "^0.4.13",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "express-queue": "0.0.12"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "mocha": "^6.2.2",
+        "pdf-parse": "^1.1.1"
+    }
+}

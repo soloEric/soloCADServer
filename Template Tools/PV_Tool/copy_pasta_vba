@@ -1,0 +1,35 @@
+Sub populate_data()
+
+Dim otherWB As Workbook, ThisWB As Workbook, PasteWS As Worksheet, CopyWS As Worksheet
+Dim vFile As Variant
+
+Application.ScreenUpdating = False
+
+Set ThisWB = ActiveWorkbook
+
+vFile = Application.GetOpenFilename("Excel-files,*.csv", _
+        1, "Select One File To Open", , False)
+
+If TypeName(vFile) = "Boolean" Then Exit Sub
+    Workbooks.Open vFile
+    
+Set otherWB = ActiveWorkbook
+Set CopyWS = ActiveSheet
+
+ActiveSheet.Range("A1:AN2").Select
+Selection.Copy
+
+ThisWB.Activate
+Set PasteWS = Worksheets("PHX_Data")
+
+
+Sheets("PHX_Data").Select
+Range("A1:AN2").Select
+Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=True, Transpose:=False
+    Application.CutCopyMode = False
+    Application.ScreenUpdating = True
+
+otherWB.Close
+    
+
+End Sub

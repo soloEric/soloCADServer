@@ -1,0 +1,182 @@
+Sub Scrape()
+
+Dim bot As New WebDriver
+
+Dim login_URL As String
+Dim info_URL As String
+Dim pasted_URL As String
+Dim domain As String
+
+Dim scraper_email As String
+Dim scraper_passw As String
+
+scraper_email = "cadbotmccaderson@gmail.com"
+scraper_passw = "notsecure666!"
+
+login_URL = "https://phx.gosolo.io/login"
+domain = "https://phx.gosolo.io/"
+
+Worksheets("Main Info").Activate
+pasted_URL = Worksheets("Main Info").URL_BOX.Value
+
+Application.ScreenUpdating = False
+
+If (Len(pasted_URL) = 0) Then
+
+    MsgBox "Enter in target URL of customer"
+    Exit Sub
+End If
+
+If (InStr(pasted_URL, domain) = 0) Then
+    
+    MsgBox "Give me a URL from PHX dumbass"
+    Exit Sub
+    
+End If
+
+With bot
+    .AddArgument "--headless"
+    .Start "chrome", login_URL
+    .Get "/"
+
+'LOGIN
+    .FindElementById("email").SendKeys (scraper_email)
+    .FindElementById("password").SendKeys (scraper_passw)
+    .Wait 3000
+    .FindElementByName("btn-submit").Click
+    
+'NAVIGATE TO CUSTOMER
+    info_URL = parseInfoURL(pasted_URL, domain)
+    .Wait 500
+    .Get info_URL
+    
+    Dim wait_time As Integer
+    wait_time = 0
+    
+StartWait:
+    On Error GoTo Wait
+    
+        If wait_time > 2 Then
+        
+            MsgBox "Webpage Failed to Load: Timeout"
+            Exit Sub
+            
+        End If
+        
+        .FindElementById ("first_name")
+        GoTo EndWait
+    
+Wait:
+    wait_time = wait_time + 1
+    Resume StartWait
+    
+
+EndWait:
+    
+'COPY INFO
+    Dim first As String
+    first = WorksheetFunction.Proper(.FindElementById("first_name").Value)
+    Dim last As String
+    last = WorksheetFunction.Proper(.FindElementById("last_name").Value)
+    Sheet1.Range("B2").Value = first & " " & last
+    Sheet1.Range("B3").Value = WorksheetFunction.Proper(.FindElementById("address").Value)
+    Sheet1.Range("B4").Value = WorksheetFunction.Proper(.FindElementById("city").Value)
+    Sheet1.Range("B5").Value = UCase(.FindElementById("state").Value)
+    Sheet1.Range("B6").Value = WorksheetFunction.Proper(.FindElementById("zip").Value)
+    
+    Dim lat As String
+    lat = .FindElementById("lat").Value
+   
+    Dim lon As String
+    lon = .FindElementById("lon").Value
+    
+    Dim google As String
+    google = "https://www.google.com/maps/@?api=1&map_action=map&center=" & lat & "," & lon & "&zoom=20&basemap=satellite&layer=transit"
+    'Debug.Print google
+    
+    Sheet1.Hyperlinks.Add Anchor:=Sheet1.Range("A31"), Address:=google, ScreenTip:="Google Map", TextToDisplay:="Google Map Location"
+    
+    Dim nearMap As String
+    nearMap = "https://apps.nearmap.com/maps/#/@" & lat & "," & lon & ",20.00z,0d/V"
+    
+    Sheet1.Hyperlinks.Add Anchor:=Sheet1.Range("A32"), Address:=nearMap, ScreenTip:="NearMap", TextToDisplay:="Near Map Location"
+    
+'GET NOTES
+    cad_URL = parseCadURL(pasted_URL, domain)
+    .Wait 500
+    .Get cad_URL
+    
+    Dim wait_time1 As Integer
+    wait_time1 = 0
+    
+StartWait1:
+    On Error GoTo Wait1
+    
+        If wait_time1 > 2 Then
+        
+            MsgBox "Webpage Failed to Load: Timeout"
+            Exit Sub
+            
+        End If
+        
+        .FindElementById ("notes")
+        GoTo EndWait1
+    
+Wait1:
+    wait_time1 = wait_time1 + 1
+    Resume StartWait1
+    
+
+EndWait1:
+
+    On Error GoTo errorCatch
+    .Wait 500
+    Sheet1.Range("B31").Value = .FindElementById("notes").Value
+    
+    .Quit
+    Application.ScreenUpdating = True
+    
+    Exit Sub
+
+errorCatch:
+    MsgBox "error"
+    Application.ScreenUpdating = True
+    Exit Sub
+    
+
+    
+    .Quit
+End With
+
+End Sub
+
+
+Private Function parseInfoURL(ByRef pasted_URL As String, ByRef domain As String) As String
+Dim URL As String
+Dim customer_ID As String
+
+URL = Right(pasted_URL, Len(domain))
+
+substr_array = Split(URL, "/")
+
+parseInfoURL = domain & "customer/" & substr_array(2) & "/info"
+
+
+
+End Function
+
+Private Function parseCadURL(ByRef pasted_URL As String, ByRef domain As String) As String
+Dim URL As String
+Dim customer_ID As String
+
+URL = Right(pasted_URL, Len(domain))
+
+substr_array = Split(URL, "/")
+
+parseCadURL = domain & "customer/" & substr_array(2) & "/cad"
+
+
+
+End Function
+
+

@@ -1,0 +1,10 @@
+Sub OpenMap()
+
+If Sheet1.Range("A31").Value <> "" Then
+    Sheet1.Range("A31").Hyperlinks(1).Follow
+    Sheet1.Range("A32").Hyperlinks(1).Follow
+Else
+    MsgBox "No Hyperlinks Available"
+End If
+
+End Sub

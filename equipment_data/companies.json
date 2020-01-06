@@ -1,0 +1,16 @@
+{
+    "companies": [
+        {
+            "name": "Encor",
+            "resource": "location of resource"
+        },
+        {
+            "name": "Summit",
+            "resource": "location of resource"
+        },
+        {
+            "name": "Sigora",
+            "resource": "location of resource"
+        }
+    ]
+}
