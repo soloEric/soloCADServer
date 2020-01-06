@@ -1,0 +1,13 @@
+
+
+[12/27/2019], [9:57:19]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1577465839273.zip
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_flashkit_pro.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1577465839273\Combined CAD.pdf
+
+python Combine exited with code 0

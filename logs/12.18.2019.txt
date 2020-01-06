@@ -1,0 +1,271 @@
+
+
+[12/18/2019], [11:39:42]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+
+[12/18/2019], [11:57:32]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+Zip Sent
+./dwgs/company_logo/Encor/company_logo.dwg
+
+[12/18/2019], [11:57:55]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+Zip Sent
+
+[12/18/2019], [11:58:57]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+Zip Sent
+
+[12/18/2019], [11:59:46]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+Zip Sent
+
+[12/18/2019], [12:0:45]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+Zip Sent
+
+[12/18/2019], [12:0:55]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+Zip Sent
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+
+[12/18/2019], [12:1:9]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+Zip Sent
+
+[12/18/2019], [12:1:36]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+Zip Sent
+
+[12/18/2019], [12:2:28]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+Zip Sent
+
+[12/18/2019], [12:2:47]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+Zip Sent
+
+[12/18/2019], [12:3:1]
+:: GET request from ::ffff:192.168.0.126 to /request_dwg
+retrieving files:
+./dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg
+./dwgs/interconnection/L1/interconnections.dwg
+./dwgs/company_logo/Encor/company_logo.dwg
+Zip Sent
+
+[12/18/2019], [14:25:27]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:38:12]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:39:13]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:40:19]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:44:33]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:47:31]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [14:48:58]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:11:4]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:17:54]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:28:44]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:31:26]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:54:27]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576709667201.zip
+
+[12/18/2019], [15:57:16]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:59:6]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [15:59:44]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:4:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:10:5]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576710605249.zip
+
+[12/18/2019], [16:12:42]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:18:15]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:18:51]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:19:54]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:20:31]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576711231082.zip
+
+[12/18/2019], [16:21:54]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:22:22]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576711342167.zip
+
+[12/18/2019], [16:23:3]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576711383065.zip
+
+[12/18/2019], [16:26:58]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:31:51]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:32:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576711963109.zip
+
+[12/18/2019], [16:34:16]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [16:36:24]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576712184047.zip
+
+[12/18/2019], [16:50:1]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576713001192.zip
+
+[12/18/2019], [16:53:49]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576713229205.zip
+
+[12/18/2019], [16:57:52]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576713472161.zip
+
+[12/18/2019], [17:12:48]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576714368270.zip
+
+[12/18/2019], [17:17:49]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576714669060.zip
+
+[12/18/2019], [17:19:17]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576714757801.zip
+
+[12/18/2019], [17:23:6]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576714986058.zip
+
+[12/18/2019], [17:26:14]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576715174354.zip
+
+[12/18/2019], [17:28:25]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576715305770.zip
+
+[12/18/2019], [17:47:5]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576716425120.zip
+
+[12/18/2019], [17:50:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576716643376.zip
+
+[12/18/2019], [17:51:28]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.1261576716688209.zip
+
+[12/18/2019], [18:11:35]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1576717910618.zip
+Writing to file: 192.168.0.126_1576717963331.zip
+
+[12/18/2019], [18:12:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [18:18:32]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1576718312063.zip
+
+[12/18/2019], [18:26:47]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [18:32:0]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[12/18/2019], [18:33:5]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1576719185097.zip
+
+[12/18/2019], [18:34:14]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1576719254222.zip
+
+[12/18/2019], [18:46:56]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1576720016063.zip

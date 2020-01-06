@@ -1,0 +1,595 @@
+
+
+[1/3/2020], [9:8:1]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578067681025.zip
+Loading Parameter: Meraki - Raymond Dyal - SoloCAD V5.8.7.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+ir_xr_rails.pdf
+ir_flashfoot2.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578067681025\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x2abd4d for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:3:9]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578070989657.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578070989657\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:12:37]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578071557924.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578071557924\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:12:45]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578071565633.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578071565633\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:13:15]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578071595633.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578071595633\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:26:1]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578072361715.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578072361715\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:27:58]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578072478465.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578072478465\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:33:54]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578072834756.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578072834756\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:56:5]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578074165065.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578074165065\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [10:58:9]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578074289024.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578074289024\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [11:23:41]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578075821070.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578075821070\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [11:28:26]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578076106214.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578076106214\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [11:32:37]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578076357942.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578076357942\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [11:33:40]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578076420056.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578076420056\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [11:50:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[1/3/2020], [11:59:1]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578077941222.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578077941222\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:1:39]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578078099062.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578078099062\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:15:3]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Loading Parameter: specList.json
+Writing to file: 192.168.0.126_1578078903004.zip
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578078903004\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:16:0]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Loading Parameter: specList.json
+Writing to file: 192.168.0.126_1578078960008.zip
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578078960008\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:22:4]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578079324569.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578079324569\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:25:18]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578079518723.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578079518723\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:25:43]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578079543597.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578079543597\Combined CAD.pdf
+
+python Combine exited with code 0
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+
+[1/3/2020], [12:41:13]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578080473197.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578080473197\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:43:50]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578080630910.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578080630910\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:48:0]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578080880622.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578080880622\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:51:25]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020], [12:51:27]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578081087339.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578081087339\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [12:51:47]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020], [12:51:47]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578081107760.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578081107760\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020], [13:5:49]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020], [13:5:49]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578081949170.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578081949170\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[13:8:8]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[13:8:8]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578082088608.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578082088608\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[13:8:14]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[13:8:14]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578082094590.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578082094590\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[13:8:38]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[13:8:38]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+
+[1/3/2020]::[14:26:2]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[14:26:2]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578086762859.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578086762859\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[14:26:30]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[14:26:30]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578086790599.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578086790599\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[14:26:59]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[14:26:59]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578086819871.zip
+Loading Parameter: testCAD.pdf
+Loading Parameter: specList.json
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578086819871\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[15:23:23]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[15:23:23]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578090203479.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578090203479\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[1/3/2020]::[15:23:37]
+:: GET request from ::ffff:192.168.0.126 to /unhandled_route
+Error 404 sent to Client
+
+[1/3/2020]::[15:23:37]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1578090217824.zip
+Loading Parameter: specList.json
+Loading Parameter: testCAD.pdf
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_tilehook.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1578090217824\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x29a9de for key /PageMode [generic.py:587]
+
+python Combine exited with code 0

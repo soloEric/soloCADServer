@@ -1,0 +1,29 @@
+
+
+[12/23/2019], [11:33:34]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1577126014021.zip
+Python pdf combine returned with response: trina_tsm-dd05a.08(II)_280-315_tsm-dd05a.05(II)_275-310.pdf
+enphase_iq7_iq7plus.pdf
+ir_xr_rails.pdf
+ir_flashfoot2.pdf
+enphase_combiner_X-IQ-AM1-240-3.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1577126014021\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x1ee02e for key /PageMode [generic.py:587]
+
+python Combine exited with code 0
+
+[12/23/2019], [12:57:35]
+:: POST request from ::ffff:192.168.0.126 to /pdfCombine
+Writing to file: 192.168.0.126_1577131055017.zip
+Python pdf combine returned with response: s-energy_sn300_305_310_315_320m-10t_15t.pdf
+solaredge_hd_wave_inverters.pdf
+unirac_sm.pdf
+unirac_flashkit_pro.pdf
+solaredge_optimizers.pdf
+C:\Users\Eric\Desktop\fileServerPackage\expressServer\192.168.0.126_1577131055017\Combined CAD.pdf
+
+python Combine error: PdfReadWarning: Multiple definitions in dictionary at byte 0x1ed95a for key /PageMode [generic.py:587]
+
+python Combine exited with code 0

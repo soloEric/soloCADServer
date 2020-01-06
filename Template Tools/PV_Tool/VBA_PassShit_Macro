@@ -1,0 +1,36 @@
+Sub PassShit()
+Dim tool As Workbook
+Set tool = ThisWorkbook
+
+Dim pythonPath As String
+Dim scriptPath As String
+Dim myPath As String
+Dim workbookPath As String
+Dim folderPath As String
+
+pythonPath = "python"
+script1Path = "C:\Template Tools\PV_tool\data_scraper_import.py"
+script2Path = "C:\Template Tools\PV_tool\dwg_import.py"
+'command_input[1] in Python, sys.argv, excel_file_path
+workbookPath = Application.ActiveWorkbook.FullName
+'command_input[2] in Python, sys.argv, workbook_folder
+folderPath = Application.ActiveWorkbook.Path
+
+string1Boi = Chr(34) & pythonPath & Chr(34) & Chr(32) & Chr(34) & script1Path & Chr(34) & Chr(32) & Chr(34) & workbookPath & Chr(34) & Chr(32) & Chr(34) & folderPath & Chr(34)
+string2Boi = Chr(34) & pythonPath & Chr(34) & Chr(32) & Chr(34) & script2Path & Chr(34) & Chr(32) & Chr(34) & workbookPath & Chr(34) & Chr(32) & Chr(34) & folderPath & Chr(34)
+
+Dim Python1Args As String
+Dim Python2Args As String
+Python1Args = string1Boi
+Python2Args = string2Boi
+
+Shell Python1Args
+Shell Python2Args
+
+'MsgBox is useful for testing outputs
+'MsgBox (string1Boi)
+'MsgBox (string2Boi)
+
+End Sub
+
+
