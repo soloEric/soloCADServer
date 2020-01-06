@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "companies": [
         {
@@ -14,21 +13,4 @@
             "resource": "location of resource"
         }
     ]
-=======
-{
-    "companies": [
-        {
-            "name": "Encor",
-            "resource": "location of resource"
-        },
-        {
-            "name": "Summit",
-            "resource": "location of resource"
-        },
-        {
-            "name": "Sigora",
-            "resource": "location of resource"
-        }
-    ]
->>>>>>> d3f4685089cc7861389430ca2e10aa1fb217952d
 }
