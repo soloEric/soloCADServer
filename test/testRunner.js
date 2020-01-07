@@ -9,7 +9,7 @@ const path = require('path');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
-const target = 'http://192.168.0.126:8080';
+const target = 'http://192.168.0.126:8081';
 const fs = require('fs');
 
 describe("Server Functionality Test", () => {
@@ -82,6 +82,11 @@ describe("Server Functionality Test", () => {
         }
         done();
     });
+
+    it("Test server response to unsupported pdfs");
+
+
+    //************************************************************************************************ */
 
     after(function () {
         console.log("\ncalling cleanup")
