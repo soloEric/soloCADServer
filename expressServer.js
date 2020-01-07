@@ -22,8 +22,7 @@ const path = require('path');
 
 const pythonScripts = {
     //add key/val pair of python script name and the  relative path to the script
-    'test': './pythonScripts/testScript.py',
-    'testDwg': './pythonScripts/testDWGRequest.py',
+
     'combinePy': './pythonScripts/spec_sheet_compiler_SERVER.py'
 }
 
