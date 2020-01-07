@@ -22,7 +22,6 @@ const path = require('path');
 
 const pythonScripts = {
     //add key/val pair of python script name and the  relative path to the script
-
     'combinePy': './pythonScripts/spec_sheet_compiler_SERVER.py'
 }
 
@@ -65,6 +64,7 @@ function logErrors(err, req, res, next) {
 }
 
 //TODO:: 
+// Switch python script from test script to python calculations/dwg selection
 // Wrap python script calls in Promises
 // test sending back data to the client after python script
 // option1: Attempt to handle file return in one post request
@@ -239,6 +239,7 @@ app.route('/request_dwg').get(function (req, res, next) {
 });
 
 // This option is currently not needed
+//  Update this route when we move to a client that doesn't need updating. 
 // Client requests a list of available equipment to populate dropdowns in excel file
 app.route('/requestEquip').get(function (req, res, next) {
     console.log(`\n${timeStamp.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /requestEquip`);
