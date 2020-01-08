@@ -1,5 +1,5 @@
 **/node_modules
 **/venv
 **/logs/*.txt
-**/dwgs
-**/spec_sheets
+#**/dwgs
+#**/spec_sheets

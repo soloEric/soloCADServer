@@ -1,27 +1,27 @@
 // Use to run automated requests to expressServer.js to test functionality
 // 
 
-
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 const pdf = require('pdf-parse');
+const path = require('path');
 
 chai.use(chaiHttp);
 var expect = chai.expect;
 
-const target = 'http://192.168.0.126:8080';
+const target = 'http://192.168.0.126:8081';
 const fs = require('fs');
 
 describe("Server Functionality Test", () => {
     it("Test unhandled paths", done => {
         chai.request(target)
-        .get('/unhandled')
-        .send()
-        .end(function(err, res) {
-            expect(err).to.be.null;
-            expect(res).to.have.status(404);
-            done();
-        });
+            .get('/unhandled')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(404);
+                done();
+            });
     })
     it("Get Instructions String", done => {
         chai.request(target)
@@ -35,7 +35,7 @@ describe("Server Functionality Test", () => {
 
             });
     });
-
+    var createdPDF = false;
     it('Positive: Get Combined PDF', function (done) {
         this.timeout(5000);
         chai.request(target)
@@ -53,20 +53,40 @@ describe("Server Functionality Test", () => {
                     if (fs.existsSync(`${__dirname}\\testCombined.pdf`)) {
                         isValidPDF(fs.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
                             expect(check.isPDF).to.be.true;
+                            createdPDF = true;
                             done();
                         });
                     } else {
                         console.log("File not written successfully");
-                        expect(false).to.be.true;
+                        createdPDF = false;
                         done();
                     }
                 });
             });
     });
 
-    it("Get Combined PDF: Fail if can't find file");
+    it("Get Combined PDF: Successfully wrote to PDF", function (done) {
+        expect(createdPDF).to.be.true;
+        done();
+    });
 
-    it("server should remove local files related to request");
+    it("server should remove local files related to request", function (done) {
+
+        const dirs = getDirectories('./');
+        // console.log(dirs);
+        for (const dir of dirs) {
+            if (dir.includes("192.168")) {
+                expect(false).to.be.true;
+                done();
+            }
+        }
+        done();
+    });
+
+    it("Test server response to unsupported pdfs");
+
+
+    //************************************************************************************************ */
 
     after(function () {
         console.log("\ncalling cleanup")
@@ -91,3 +111,9 @@ function isValidPDF(buffer) {
         return { isPDF: false, info: null };
     });
 }
+
+function getDirectories(path) {
+    return fs.readdirSync(path).filter(function (file) {
+      return fs.statSync(path+'/'+file).isDirectory();
+    });
+  }

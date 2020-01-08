@@ -1,5 +1,5 @@
 module.exports = {
-    logger: (toLog) => {
+    log: (toLog) => {
         const fs = require('fs');
         let date = new Date();
         let fileName = `./logs/${date.getMonth() + 1}.${date.getDate()}.${date.getFullYear()}.txt`
