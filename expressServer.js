@@ -2,6 +2,8 @@
 const CATTER = require('./tools/catter');
 const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
+const FLDMNGR = require('./tools/folderManager')
+
 const HOST_NAME = '192.168.0.126';
 const PORT = '8081';
 
@@ -22,7 +24,8 @@ const PATH = require('path');
 
 const PYTHON_SCRIPTS = {
     //add key/val pair of python script name and the  relative path to the script
-    'combinePy': './pythonScripts/spec_sheet_compiler_SERVER.py'
+    'combinePy': './pythonScripts/spec_sheet_compiler_SERVER.py',
+    'dwg_import': './pythonScripts/dwg_import_SERVER.py'
 }
 
 const MIME_TYPE = {
@@ -63,52 +66,62 @@ function logErrors(err, req, res, next) {
     next(err);
 }
 
-//TODO:: 
-// Switch python script from test script to python calculations/dwg selection
-// Wrap python script calls in Promises
-// test sending back data to the client after python script
-// option1: Attempt to handle file return in one post request
-// option2: create session folder titled after customer name and requesting ip
-//          create packaged files there in python, wait for client to request files
 
-// Client sends JSON file with python function parameters
-// Server calls functions referenced in JSON file with parameters parsed from JSON
-APP.route('/postJSON').post(JSON_PARSER, function (req, res, next) {
+// Client sends JSON file with parameter values for dwg import
+// Server creates local folder for Python to create dwg dump
+// Server zips up dwg dump and sends it to Client
+// Server Cleans up local files
+APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /postJSON`);
-    LOGGER.log(JSON.stringify(req.body));
-    const pyParams = req.body;
-    //console.log(pyParams[0].Module)
-    // console.log(`calling pyton test script with arg ${pyParams[0].Module}`);
-    const testPromise = new Promise((resolve, reject) => {
-        const pythonTest = SPAWN('python', [PYTHON_SCRIPTS['test'], pyParams['xl_inverter_pn']]);
-        pythonTest.stdout.on('data', (data) => {
+    
+    //create local folder
+    let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.dwgImport`;
+    FLDMNGR.createLocalFolder(funcFolderName);
 
-            if (data) {
-                resolve(`node logging data from python: ${data.toString()}`);
-            }
-            else {
-                reject(new Error('Python not executed'));
-            }
-        });
+    // pass in JSON and local folder name, python will put files in local folder
+    const pythonProcess = SPAWN('python', [PYTHON_SCRIPTS['dwg_import'], JSON.stringify(req.body), funcFolderName]);
+    pythonProcess.stdout.on('data', (data) => {
 
+        if (data) {
+            LOGGER.log(data.toString());
+
+            //FIXME: zip up data created by python and send
+            let zip = new AdmZip();
+            //python copies dwgs to folder, then zip up all .dwgs
+
+
+            res.status = 201;
+            res.send('placeholder: return zip folder here');
+            // clean up
+            FLDMNGR.removeLocalFolder(funcFolderName);
+        }
+        else {
+            LOGGER.log("Error: triggered data event with empty data");
+            res.status = 500;
+            res.send("Server Error");
+            // clean up
+            FLDMNGR.removeLocalFolder(funcFolderName);
+        }
+    });
+    
+    pythonProcess.stdout.on('end', (data) => {
+        //check if headers sent
+        if (!res.headersSent) {
+            LOGGER.log("Error: data event was not triggered")
+            res.status = 500;
+            res.send("Server Error");
+            // clean up
+            FLDMNGR.removeLocalFolder(funcFolderName);
+        }
     });
 
-    const callPromise = function () {
-        testPromise
-            .then(resolveMsg => {
-                console.log(resolveMsg);
-                res.statusCode = 201;
-                res.send();
-            })
-            .catch(error => {
-                console.log(error);
-                res.statusCode = 500;
-                res.send("Internal Error, python script not executed");
-            });
-    }
-
-    callPromise();
-
+    pythonProcess.stderr.on('data', (data) => {
+        LOGGER.log(`stderr triggered data event with:\n${data.toString()}`);
+        res.status = 500;
+        res.send("Server Error");
+        // clean up
+        FLDMNGR.removeLocalFolder(funcFolderName);
+    });
 });
 
 APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
@@ -127,7 +140,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
-                    
+
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
@@ -190,7 +203,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
     }
 });
 
-//test route, currently returns hard coded string from python script 
+//test route, BEING IMPLEMENTED THROUGH /dwgImport route
 // FIXME: take in JSON string from excel http request
 // pass in args to python dwg retrieval
 // get dwg paths from python

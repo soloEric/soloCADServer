@@ -1,14 +1,24 @@
-import pandas as pd
 import sys
-import excel_handler
-import file_finder
-import create_folder
+import json
+from pythonScripts import file_finder
 import os
 
+numArgs = len(sys.argv)
+if numArgs < 3:
+    print('Error: incorrect system argument number')
+    sys.stdout.flush()
+    sys.exit()
+
+jsonObj = json.loads(sys.argv[1])
+targetFolder = sys.argv[2]
+
+workingDir = os.getcwd() + '/dwgs'# .../fileServerPackage/expressServer
+
+
+
+
 # initialize variables and lists
-command_input = sys.argv
-excel_file_path = command_input[1]
-workbook_folder = command_input[2]
+
 xl_data_list = []
 xl_named_data_list = []
 xl_dict = {}
@@ -18,7 +28,6 @@ pv_tool_dwg_loc = f'{pv_tool_loc}/dwgs'
 sld_dwg_loc = f'{pv_tool_dwg_loc}/line_diagram'
 
 # xrefs
-xref_folder_path = f'{workbook_folder}/xref'
 company_logo = f'company_logo.dwg'
 mounting_detail = f'mounting_detail.dwg'
 inv_strings = f'inv_strings.dwg'
@@ -50,36 +59,27 @@ dwg_list = [
     labels
         ]
 
-# import excel workbook as a list, xl_data_list
-# convert xl_data_list into dataframe
-# rewrite dataframe as a dictionary
-excel_handler.import_sheet(excel_file_path, xl_sheet_name, xl_data_list)
-xl_named_data_list = pd.DataFrame(xl_data_list[1:], columns=xl_data_list[0])
-
-for i in range(0, len(xl_data_list) - 1):
-    xl_dict[xl_named_data_list.iloc[i, 0]] = xl_named_data_list.iloc[i, 1]
-
 # xref folder names
-company_folder = xl_dict['xl_company']
-mounting_detail_folder = xl_dict['xl_mounting_detail']
-inv_strings_folder = xl_dict['xl_inv_strings']      # this can be calculated by system calcs instead of excel
-battery_folder = xl_dict['xl_battery']
-combo_folder = xl_dict['xl_combo']
-interconnection_folder = xl_dict['xl_interconnection']
-meter_folder = xl_dict['xl_meter']
-other_sld_folder = xl_dict['xl_other_sld']
-labels_folder = xl_dict['xl_labels']
+company_folder = jsonObj['xl_company']
+mounting_detail_folder = jsonObj['xl_mounting_detail']
+inv_strings_folder = jsonObj['xl_inv_strings']      # this can be calculated by system calcs instead of excel
+battery_folder = jsonObj['xl_battery']
+combo_folder = jsonObj['xl_combo']
+interconnection_folder = jsonObj['xl_interconnection']
+meter_folder = jsonObj['xl_meter']
+other_sld_folder = jsonObj['xl_other_sld']
+labels_folder = jsonObj['xl_labels']
 
 # xref paths
-logo_path = f'{pv_tool_dwg_loc}/company_logos/{company_folder}/{company_logo}'
-mounting_detail_path = f'{pv_tool_dwg_loc}/mounting_detail/{mounting_detail_folder}/{mounting_detail}'
+logo_path = f'{workingDir}/company_logos/{company_folder}/{company_logo}'
+mounting_detail_path = f'{workingDir}/mounting_detail/{mounting_detail_folder}/{mounting_detail}'
 inv_str_path = f'{sld_dwg_loc}/strings/{inv_strings_folder}/{inv_strings}'
 battery_path = f'{sld_dwg_loc}/batteries/{battery_folder}/{battery}'
 combo_path = f'{sld_dwg_loc}/combos/{combo_folder}/{ac_disco_meter_combo}'
 interconnection_path = f'{sld_dwg_loc}/interconnections/{interconnection_folder}/{interconnection}'
 meter_path = f'{sld_dwg_loc}/meter/{meter_folder}/{meter}'
 other_sld_path = f'{sld_dwg_loc}/other/{other_sld_folder}/{other_sld}'
-labels_path = f'{pv_tool_dwg_loc}/labels/{labels_folder}/{labels}'
+labels_path = f'{workingDir}/labels/{labels_folder}/{labels}'
 
 
 dwg_path_list = [
@@ -95,7 +95,7 @@ dwg_path_list = [
         ]
 
 # copy xrefs from pv_tool into project folder
-file_finder.copy_file(dwg_path_list, xref_folder_path, dwg_list)
+file_finder.copy_file(dwg_path_list, targetFolder, dwg_list)
 
 # TO DO
 # System calcs pass inv_str value
