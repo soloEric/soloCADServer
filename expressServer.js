@@ -72,7 +72,7 @@ function logErrors(err, req, res, next) {
 // Server zips up dwg dump and sends it to Client
 // Server Cleans up local files
 APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
-    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /postJSON`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /dwgImport`);
     
     //create local folder
     let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.dwgImport`;
