@@ -2,7 +2,8 @@
 const CATTER = require('./tools/catter');
 const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
-const FLDMNGR = require('./tools/folderManager')
+const FLDMNGR = require('./tools/folderManager');
+const DWGIMP = require('./tools/dwgImport');
 
 const HOST_NAME = '192.168.0.126';
 const PORT = '8081';
@@ -31,7 +32,8 @@ const PYTHON_SCRIPTS = {
 const MIME_TYPE = {
     '.dwg': 'application/acad',
     '.pdf': 'application/pdf',
-    '.json': 'application/json'
+    '.json': 'application/json',
+    '.zip': 'application/octet-stream'
 }
 
 const EXPRESS = require('express');
@@ -73,55 +75,78 @@ function logErrors(err, req, res, next) {
 // Server Cleans up local files
 APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /dwgImport`);
-    
+
     //create local folder
     let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.dwgImport`;
     FLDMNGR.createLocalFolder(funcFolderName);
 
-    // pass in JSON and local folder name, python will put files in local folder
-    const pythonProcess = SPAWN('python', [PYTHON_SCRIPTS['dwg_import'], JSON.stringify(req.body), funcFolderName]);
-    pythonProcess.stdout.on('data', (data) => {
-
-        if (data) {
-            LOGGER.log(data.toString());
-
-            //FIXME: zip up data created by python and send
+    DWGIMP.moveDwgs(req.body, funcFolderName);
+    if (FS.existsSync(funcFolderName)) {
+        let files = FS.readdirSync(funcFolderName);
+        if (!files.length) {
+            res.status = 500;
+            res.send("Server Error");
+        } else {
             let zip = new AdmZip();
-            //python copies dwgs to folder, then zip up all .dwgs
+            for (const file of files) {
+
+                LOGGER.log(PATH.join(`./${funcFolderName}`, file));
+                zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
+            }
+            res.set('status', 201);
+            res.set('Accept', MIME_TYPE['.dwg.zip']);
+            res.send(zip.toBuffer());
+            LOGGER.log("Successfully Sent XREF Zip");
+        }
+    }
+    //clean up
+    FLDMNGR.removeLocalFolder(funcFolderName);
 
 
-            res.status = 201;
-            res.send('placeholder: return zip folder here');
-            // clean up
-            FLDMNGR.removeLocalFolder(funcFolderName);
-        }
-        else {
-            LOGGER.log("Error: triggered data event with empty data");
-            res.status = 500;
-            res.send("Server Error");
-            // clean up
-            FLDMNGR.removeLocalFolder(funcFolderName);
-        }
-    });
-    
-    pythonProcess.stdout.on('end', (data) => {
-        //check if headers sent
-        if (!res.headersSent) {
-            LOGGER.log("Error: data event was not triggered")
-            res.status = 500;
-            res.send("Server Error");
-            // clean up
-            FLDMNGR.removeLocalFolder(funcFolderName);
-        }
-    });
+    // // pass in JSON and local folder name, python will put files in local folder
+    // const pythonProcess = SPAWN('python', [PYTHON_SCRIPTS['dwg_import'], JSON.stringify(req.body), funcFolderName]);
+    // pythonProcess.stdout.on('data', (data) => {
 
-    pythonProcess.stderr.on('data', (data) => {
-        LOGGER.log(`stderr triggered data event with:\n${data.toString()}`);
-        res.status = 500;
-        res.send("Server Error");
-        // clean up
-        FLDMNGR.removeLocalFolder(funcFolderName);
-    });
+    //     if (data) {
+    //         LOGGER.log(data.toString());
+
+    //         //FIXME: zip up data created by python and send
+    //         let zip = new AdmZip();
+    //         //python copies dwgs to folder, then zip up all .dwgs
+
+
+    //         res.status = 201;
+    //         res.send('placeholder: return zip folder here');
+    //         // clean up
+    //         FLDMNGR.removeLocalFolder(funcFolderName);
+    //     }
+    //     else {
+    //         LOGGER.log("Error: triggered data event with empty data");
+    //         res.status = 500;
+    //         res.send("Server Error");
+    //         // clean up
+    //         FLDMNGR.removeLocalFolder(funcFolderName);
+    //     }
+    // });
+
+    // pythonProcess.stdout.on('end', (data) => {
+    //     //check if headers sent
+    //     if (!res.headersSent) {
+    //         LOGGER.log("Error: data event was not triggered")
+    //         res.status = 500;
+    //         res.send("Server Error");
+    //         // clean up
+    //         FLDMNGR.removeLocalFolder(funcFolderName);
+    //     }
+    // });
+
+    // pythonProcess.stderr.on('data', (data) => {
+    //     LOGGER.log(`stderr triggered data event with:\n${data.toString()}`);
+    //     res.status = 500;
+    //     res.send("Server Error");
+    //     // clean up
+    //     FLDMNGR.removeLocalFolder(funcFolderName);
+    // });
 });
 
 APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {

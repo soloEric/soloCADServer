@@ -1,13 +1,13 @@
 import shutil as sh
 import os
 from PyPDF2 import PdfFileMerger
-from pythonScripts import create_folder
+
+from pythonScripts import helper
 
 
 def copy_file(files_to_find_list, where_to_copy_file_to, some_list):
     # xref folder needs to be created in project folder if it doesn't exist yet
-    create_folder.create_dir(where_to_copy_file_to)
-
+    helper.create_folder.create_dir(where_to_copy_file_to)
     # check xref folder for existing .dwgs - if they exist, delete them
     for i in some_list:
         path_boi = f'{where_to_copy_file_to}/{i}'

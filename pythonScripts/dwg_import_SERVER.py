@@ -1,7 +1,7 @@
 import sys
 import json
-from pythonScripts import file_finder
 import os
+from pythonScripts.helper import file_finder
 
 numArgs = len(sys.argv)
 if numArgs < 3:
@@ -18,14 +18,6 @@ workingDir = os.getcwd() + '/dwgs'# .../fileServerPackage/expressServer
 
 if True:
 
-    # initialize variables and lists
-
-    # xl_data_list = []
-    # xl_named_data_list = []
-    # xl_dict = {}
-    # xl_sheet_name = "All Data Outputs"
-    # pv_tool_loc = f'C:/Template Tools/PV_tool'
-    # pv_tool_dwg_loc = f'{pv_tool_loc}/dwgs'
     sld_dwg_loc = f'{workingDir}/line_diagram'
 
     # xrefs
@@ -38,15 +30,6 @@ if True:
     meter = f'meter_boi.dwg'
     other_sld = f'other_sld.dwg'
     labels = f'labels.dwg'
-
-    """
-    # test values
-    mounting_detail = f'mounting_detail.txt'
-    company_logo = f'company_logo.txt'
-    inv_strings = f'inv_strings.txt'
-    ac_disco_meter = f'ac_disco_pv_meter.txt'
-    interconnection = f'interconnection.txt'
-    """
 
     dwg_list = [
         company_logo,
