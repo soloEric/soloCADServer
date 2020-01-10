@@ -2,7 +2,278 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d758d3b-a680-45fb-9f71-68b811d92dd6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Above Board Construction/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Ace Solar and Roofing/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Aces Companies/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/American Engineering Contractor - AmeriSun/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/American Home Energy/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Arcadia Energy/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/August Roofing/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Bell Electrical Systems/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Big Dog Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Brightest/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Cal Sun Construction/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/DJ's Electric/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/ECS/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Edwards Construction &amp; Solar Company/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Electric Tech/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Elite System Choice/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Encor/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Energy Advantage Roof and Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Everlight Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/First Stop Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/GAF/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Gietzen Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Hays Energy Services/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Lifetime/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Loveland - Fresh Coast Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Meraki Solutions/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Modern Mill Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Nationwide - Oregon/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Nationwide - Washington/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Next Energy Alliance/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Now Energy/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Orion Field Services/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Poly Energy/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Premier Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Pure Energy-Loveland/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/PureLight Power/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/SaveCo/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Shine Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Sigora Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/SkyLine Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Solar Ready Solutions/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Solis (Kuykendall Solar)/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Solnova/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Solstice Energy/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Southard's Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Summit Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Sun Pulse Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/SunVena Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Sunstor/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Sunus/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/Sunwire/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/The Chipping Group/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/US Energy Solutions/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/US Power Savers/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/company_logos/ZOI Solar/company_logo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/black_hills/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/nec_2011/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/nec_2014/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/nec_2017/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/utah_nec_2017/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/labels/xcel_nec_2017/labels.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/2 StorEdge LG Chem/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/Cali Enphase IQ Bat/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/Cali StorEdge LG Chem/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/Sigora StorEdge LG Chem/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/StorEdge LG Chem Resu10H/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/Tesla Powerwall 2/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/batteries/enphase_iq_battery/batt.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo0/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo1/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo10/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo11/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo12/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo13/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo14/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo15/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo16/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo17/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo18/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo19/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo2/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo20/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo21/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo22/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo3/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo4/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo5/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo6/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo7/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo8/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/combos/combo9/combo.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L1/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L10/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L2/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L3/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L4/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L5/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L6/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L7/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L8/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/L9/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S1/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S10/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S11/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S12/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S14/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S2/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S3/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S4/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S5/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S6/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/interconnections/S7/interconnections.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/meter/attached/meter_boi.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/meter/detached/meter_boi.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/other/aux_grounding_rod/other_sld.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/1_solaredge_1_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/1_solaredge_2_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/1_solaredge_3_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/2_solaredge_4_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/2_solaredge_5_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_1_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_2_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_3_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_4_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_5_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/enphase_6_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_1_string/inv_strings.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_1_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_2_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_3_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_4_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/line_diagram/strings/mult_input_5_string/inv_strings.dwg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwgs/mounting_detail/test/test.dwg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/F. AC Disco Bonded NG PV Meter Bottom/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/F. AC Disco Bonded NG PV Meter Top/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/F. AC Disco Bonded NG/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/F. AC Disco PV Meter Bottom/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/F. AC Disco PV Meter Top/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/Fused AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/Generac Smart Module/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Bottom F. AC Disco Bonded NG/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Bottom F. AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Bottom S. AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Bottom/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Top F. AC Disco Bonded NG/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Top F. AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Top S. AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/PV Meter Top/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/Pass/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/RMA Disconnect/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/S. AC Disco Bonded NG/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/S. AC Disco PV Meter Bottom/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/S. AC Disco PV Meter Top F. AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/S. AC Disco PV Meter Top/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/Standard AC Disco/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/Xcel Supply Side Tap/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/default/combo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/ac_disco_meter/test_combo/ac_disco_pv_meter_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Ace Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Aces Companies/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/American Engineering/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/American Home Energy/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Arcadia/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Bell Electric/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Big Dog Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Brightest/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/DJ's Electric/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/ECS/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Electric Tech/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Encor/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Encor/company_logo.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Energy Advantage/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Everlight/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/First Stop Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Fresh Coast Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/GAF/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Gietzen/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Hays Energy/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Lifetime/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Meraki/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Modern Mill/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Nationwide - Oregon/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Nationwide - Washington/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Now Energy/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Poly Energy/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Premier Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Pure Energy-Loveland/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Purelight Power/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Saveco Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Sigora/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Skyline/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Solar Ready Solutions/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Solis (Kuykendall Solar)/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Solnova/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Solstice - Chipping Group/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Solstice/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Southard's Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Summit/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/SunVena/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/SunWire/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Sunpulse Solar/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Sunstor/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/Sunus/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/US Energy Solutions/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/US Power Savers/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/default/company_logo.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/company_logo/default/company_logo.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L1/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L10/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L2/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L3/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L4/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L5/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L6/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L7/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L8/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/L9/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S1/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S10/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S11/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S12/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S14/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S2/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S3/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S4/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S5/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S6/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/S7/interconnections.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/interconnection/test_interconnection/interconnection.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_1_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_2_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_3_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_4_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_5_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/enph_6_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/mim_1_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/mim_2_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/mim_3_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/mim_4_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/mim_5_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/se_1_inv_1_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/se_1_inv_2_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/se_1_inv_3_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/se_2_inv_4_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/inv_strings/se_2_inv_5_str/inv_strings.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/Black Hills/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/Littleton/labels.dwg" beforeDir="false" afterPath="$PROJECT_DIR$/dwgs/labels/Littleton/labels.dwg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/NEC 2011/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/NEC 2014/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/NEC 2017/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/Skyline/labels.dwg" beforeDir="false" afterPath="$PROJECT_DIR$/dwgs/labels/Skyline/labels.dwg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/Utah NEC 2017/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/labels/XCEL NEC 2017/labels.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/mounting_detail/ironridge_flashfoot2/attachment.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/mounting_detail/test_mounting_detail/mounting_detail.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/mounting_detail/unirac_sm_flashkitpro/attachment.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Auxiliary Grounding Rod/Drawing2.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/2 StorEdge LG Chem/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/Cali Enphase IQ Bat/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/Cali StorEdge LG Chem/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/Enphase IQ Bat/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/Sigora StorEdge LG Chem/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/StorEdge LG Chem/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/not yet automated/Batteries/Tesla Powerwall 2/batt.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/pv0X/pv01/dynamic page numbers.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/pv0X/pv02/dynamic legend.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/pv0X/pv03/dynamic legend.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/pv0X/pv04/dynamic legend.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/util_meter/attached/meter.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/util_meter/detached/meter.dwg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dwgs/wire_callouts/company_specific_notes/Enphase Design Tool 2.0.xlsb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pythonScripts/dwg_import_SERVER.py" beforeDir="false" afterPath="$PROJECT_DIR$/pythonScripts/dwg_import_SERVER.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,10 +441,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1576257646663" />
-    <state x="2581" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1578517458266">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="661" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1578674486130">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="661" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1578517174415" />
+    <state x="661" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1578674486130" />
     <state x="2581" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1578517458266" />
   </component>
 </project>
