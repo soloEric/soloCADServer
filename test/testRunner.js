@@ -44,7 +44,7 @@ describe("Server Functionality Test", () => {
         chai.request(target)
             .post('/pdfCombine')
             .set('Content-Type', 'application/octet-stream')
-            .send(fs.readFileSync('./test/sendTest.zip'))
+            .send(fs.readFileSync('./test/testValidPdf.zip'))
             .end(function (err, res) {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
