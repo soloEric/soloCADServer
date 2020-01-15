@@ -181,53 +181,6 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
     }
 });
 
-//test route, BEING IMPLEMENTED THROUGH /dwgImport route
-// FIXME: take in JSON string from excel http request
-// pass in args to python dwg retrieval
-// get dwg paths from python
-// send zip file as response
-APP.route('/request_dwg').get(function (req, res, next) {
-    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /request_dwg`);
-    //LOGGER.log(JSON.stringify(req.body));
-    //const pyParams = req.body;
-    const dwgPromise = new Promise((resolve, reject) => {
-        const dwgRequest = SPAWN('python', [PYTHON_SCRIPTS['testDwg'], null]);
-        dwgRequest.stdout.on('data', (data) => {
-
-            if (data) {
-                LOGGER.log('retrieving files:');
-                resolve(JSON.parse(data));
-            }
-            else {
-                reject(new Error('Python not executed'));
-            }
-        });
-    });
-    const callDwgRequest = function () {
-        // file data will hold the data of all files to be put in the zip folder
-        let fileData = [];
-        dwgPromise
-            .then(filePaths => {
-                const zip = new AdmZip();
-                zip.add
-                for (let path of Object.values(filePaths)) {
-                    LOGGER.log(path)
-                    zip.addLocalFile(path);
-                }
-                const data = zip.toBuffer();
-                res.set('Content-Type', 'application/octet-stream');
-                res.set('Content-Length', data.length);
-                res.send(data);
-                LOGGER.log("Zip Sent")
-            })
-            .catch(error => {
-                LOGGER.log(error);
-                res.statusCode = 500;
-                res.send("Internal Error");
-            })
-    }
-    callDwgRequest();
-});
 
 // This option is currently not needed
 //  Update this route when we move to a client that doesn't need updating. 
