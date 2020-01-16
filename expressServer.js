@@ -110,7 +110,9 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
     try {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
-                serverFailureCleanup(res, "Server did not accept File", err, new Array(`${__dirname}/${serverZipFileName}`), null);
+                res.status = 500;
+                res.send("Server Error #");
+                FLDMNGR.removeLocalFolder(serverZipFileName);
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
@@ -125,7 +127,9 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                         FS.unlinkSync(__dirname + "\\" + serverZipFileName);
                     }
                 } catch (error) {
-                    serverFailureCleanup(res, "Server Failure: extraction", error, new Array(`${__dirname}/${serverZipFileName}`), new Array(newDir));
+                    res.status = 500;
+                    res.send("Server Error #");
+                    FLDMNGR.removeLocalFolder(serverZipFileName);
                 }
                 let files = FS.readdirSync(newDir);
                 let pdfName;
@@ -149,22 +153,16 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                             res.status = 201;
                             res.send(combinedPdf);
                         } else {
-                            serverFailureCleanup(res, 'Server Failure: Python failed', null, null);
+                            res.status = 500;
+                            res.send("Server Error #");
                         }
-                        //delete files from server
-                        files = FS.readdirSync(newDir);
-                        for (const file of files) {
-                            FS.unlinkSync(PATH.join(newDir, file), err => {
-                                if (err) throw err;
-                            })
-                        }
-                        FS.rmdirSync(newDir);
+                        FLDMNGR.removeLocalFolder(newDir);
                     }
                     else {
                         LOGGER.log('python combine script failed to create file');
                         res.status = 500;
-                        res.send('Internal Server Error: Python failed');
-                        serverFailureCleanup(res, 'Server Failure: Python failed', null, new Array(newDir));
+                        res.send('Server Error #');
+                        FLDMNGR.removeLocalFolder(newDir);
                     }
                 });
                 combinePy.stderr.on('data', (data) => {
@@ -225,45 +223,3 @@ APP.use(function (req, res, next) {
 var server = APP.listen(PORT, function () {
     console.log(`server running on ${HOST_NAME}:${PORT}\n`);
 });
-
-// Takes a server response and sends the response msg
-// deletes files and folders from list
-// TODO: create more specific error handling
-function serverFailureCleanup(res, responseMsg, err, fileList, folderList) {
-    res.statusCode = 500;
-    res.send(responseMsg);
-    try {
-        if (fileList != null) {
-            fileList.forEach(element => {
-                if (FS.existsSync(element)) {
-                    FS.unlinkSync(element);
-                }
-            });
-        }
-        if (folderList != null) {
-            folderList.forEach(element => {
-                if (FS.existsSync(element)) {
-                    FS.readdirSync(element, function (err, files) {
-                        if (err) {
-                            LOGGER.log("Error occured in serverFailureCleanup");
-                            return;
-                        } else {
-                            if (!files.length) {
-                                FS.rmdirSync(element);
-                            } else {
-                                for (const file of files) {
-                                    FS.unlinkSync(path.join(folder, file));
-                                }
-                                FS.rmdirSync(element);
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    } catch (error) {
-        LOGGER.log("Clean up failed", error);
-    }
-    LOGGER.log(`Server Failed with error: ${err}\nCleaning files`);
-}
-
