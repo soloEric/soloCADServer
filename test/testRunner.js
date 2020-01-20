@@ -19,157 +19,150 @@ var dwgImportPosData;
 var dwgImportNegData;
 
 describe("Server Functionality Test", () => {
-    // it("Test unhandled paths", done => {
-    //     chai.request(target)
-    //         .get('/unhandled')
-    //         .send()
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(404);
-    //             done();
-    //         });
-    // })
-    // it("Get Instructions String", done => {
-    //     chai.request(target)
-    //         .get('/')
-    //         .send()
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(200);
-    //             expect(res).to.not.be.NaN;
-    //             done();
+    it("Test unhandled paths", done => {
+        chai.request(target)
+            .get('/unhandled')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(404);
+                done();
+            });
+    })
+    it("Get Instructions String", done => {
+        chai.request(target)
+            .get('/')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+                expect(res).to.not.be.NaN;
+                done();
 
-    //         });
-    // });
-    // var createdPDF = false;
-    // it('Positive: Get Combined PDF', function (done) {
-    //     this.timeout(5000);
-    //     chai.request(target)
-    //         .post('/pdfCombine')
-    //         .set('Content-Type', 'application/octet-stream')
-    //         .send(FS.readFileSync('./test/testValidPdf.zip'))
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(200);
-    //             res.on('data', function (chunk) {
-    //                 FS.appendFileSync(`${__dirname}\\testCombined.pdf`, chunk);
+            });
+    });
+    var createdPDF = false;
+    it('Positive: Get Combined PDF', function (done) {
+        this.timeout(5000);
+        chai.request(target)
+            .post('/pdfCombine')
+            .set('Content-Type', 'application/octet-stream')
+            .send(FS.readFileSync('./test/testValidPdf.zip'))
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+                res.on('data', function (chunk) {
+                    FS.appendFileSync(`${__dirname}\\testCombined.pdf`, chunk);
 
-    //             });
-    //             res.on('end', function () {
-    //                 if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
-    //                     isValidPDF(FS.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
-    //                         expect(check.isPDF).to.be.true;
-    //                         createdPDF = true;
-    //                         done();
-    //                     });
-    //                 } else {
-    //                     console.log("File not written successfully");
-    //                     createdPDF = false;
-    //                     done();
-    //                 }
-    //             });
-    //         });
-    // });
+                });
+                res.on('end', function () {
+                    if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
+                        isValidPDF(FS.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
+                            expect(check.isPDF).to.be.true;
+                            createdPDF = true;
+                            done();
+                        });
+                    } else {
+                        console.log("File not written successfully");
+                        createdPDF = false;
+                        done();
+                    }
+                });
+            });
+    });
 
-    // it("Get Combined PDF: Successfully wrote to PDF", function (done) {
-    //     expect(createdPDF).to.be.true;
-    //     done();
-    // });
-
-
-
-    // it("Test server response to unsupported pdfs");
-
-    // it("DwgImport: valid paths", function (done) {
-    //     this.timeout(3000);
-    //     chai.request(target)
-    //         .post('/dwgImport')
-    //         .set('Content-Type', 'application/json')
-    //         .send(dwgImportPosData)
-    //         .buffer()
-    //         .parse(binaryParser)
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(200);
-
-    //             let zip = new AdmZip(res.body);
-    //             const zipEntries = zip.getEntries();
-    //             expect(zipEntries.length).to.equal(5);
-    //             zip.extractAllTo(`${__dirname}`);
-
-    //             let batt = false;
-    //             let comp = false;
-    //             let intercon = false;
-    //             let meter = false;
-    //             let other = false;
-    //             for (const file of zipEntries) {
-    //                 switch (file.name) {
-    //                     case 'batt.dwg':
-    //                         batt = true;
-    //                     case 'company_logo.dwg':
-    //                         comp = true;
-    //                     case 'interconnections.dwg':
-    //                         intercon = true;
-    //                     case 'meter_boi.dwg':
-    //                         meter = true;
-    //                     case 'other_sld.dwg':
-    //                         other = true;
-    //                     default:
-    //                     // console.log(`${file.name} shouldn't be here`);
-    //                 }
-    //             }
-    //             expect(batt && comp && intercon && meter && other).to.be.true;
-    //             done();
-    //         });
-    // });
-    // it("DwgImport: invalid fileNames", function (done) {
-    //     this.timeout(3000);
-    //     //console.log(dwgImportPosData);
-    //     chai.request(target)
-    //         .post('/dwgImport')
-    //         .set('Content-Type', 'application/json')
-    //         .set('Accept', 'text/plain')
-    //         .send(dwgImportNegData)
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res.text).to.equal('Server Error');
-    //             done();
-    //         });
-    // });
-
-    // it("server should remove local files related to request", function (done) {
-
-    //     const dirs = getDirectories('./');
-    //     // console.log(dirs);
-    //     for (const dir of dirs) {
-    //         if (dir.includes("192.168")) {
-    //             expect(false).to.be.true;
-    //             done();
-    //         }
-    //     }
-    //     done();
-    // });
-
-    it('pdfManager compile test 1', function (done) {
-        firstPdf = 'testCAD.pdf';
+    it("Get Combined PDF: Successfully wrote to PDF", function (done) {
+        expect(createdPDF).to.be.true;
+        done();
+    });
 
 
-        pdfM.compile(firstPdf, testJson, 'test\\test_files')
-            .then(function (data) {
-                if (data === "failed") {
-                    console.log(data);
-                } else {
-                    try {
-                        console.log(data);
-                        FS.writeFileSync(`${__dirname}/pdfTest.pdf`, data[data.length - 1], (err) => {
-                            expect(err).to.be.null;
-                        })
-                    } catch (err) {
-                        console.log(err);
+
+    it("Test server response to unsupported pdfs");
+
+    it("DwgImport: valid paths", function (done) {
+        this.timeout(3000);
+        chai.request(target)
+            .post('/dwgImport')
+            .set('Content-Type', 'application/json')
+            .send(dwgImportPosData)
+            .buffer()
+            .parse(binaryParser)
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+
+                let zip = new AdmZip(res.body);
+                const zipEntries = zip.getEntries();
+                expect(zipEntries.length).to.equal(5);
+                zip.extractAllTo(`${__dirname}`);
+
+                let batt = false;
+                let comp = false;
+                let intercon = false;
+                let meter = false;
+                let other = false;
+                for (const file of zipEntries) {
+                    switch (file.name) {
+                        case 'batt.dwg':
+                            batt = true;
+                        case 'company_logo.dwg':
+                            comp = true;
+                        case 'interconnections.dwg':
+                            intercon = true;
+                        case 'meter_boi.dwg':
+                            meter = true;
+                        case 'other_sld.dwg':
+                            other = true;
+                        default:
+                        // console.log(`${file.name} shouldn't be here`);
                     }
                 }
+                expect(batt && comp && intercon && meter && other).to.be.true;
+                done();
+            });
+    });
+    it("DwgImport: invalid fileNames", function (done) {
+        this.timeout(3000);
+        //console.log(dwgImportPosData);
+        chai.request(target)
+            .post('/dwgImport')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'text/plain')
+            .send(dwgImportNegData)
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res.text).to.equal('Server Error');
+                done();
+            });
+    });
+
+    it("server should remove local files related to request", function (done) {
+
+        const dirs = getDirectories('./');
+        // console.log(dirs);
+        for (const dir of dirs) {
+            if (dir.includes("192.168")) {
+                expect(false).to.be.true;
+                done();
+            }
+        }
+        done();
+    });
+
+    it('pdfManager compile test 1', function (done) {
+        firstPdf = `${__dirname}\\test_files\\testCAD.pdf`;
+
+
+        pdfM.compile(firstPdf, testJson, `${__dirname}/pdfTest.pdf`)
+            .then(function (data) {
+                if (!data) {
+                    console.log(data);
+                } else {
+                    expect(FS.existsSync(`${__dirname}/pdfTest.pdf`)).to.be.true;
+                }
             }).catch(error => {
-                // console.log(error);
+                console.log(error);
             }).then(() => { done(); });
 
     });
@@ -222,15 +215,15 @@ describe("Server Functionality Test", () => {
                 FS.unlinkSync(path.join(__dirname, file));
             }
         }
-        // if (FS.existsSync(`${__dirname}\\pdfTest.pdf`)) {
-        //     FS.unlink(`${__dirname}\\pdfTest.pdf`, (err) => {
-        //         if (err) {
-        //             console.log("failed to clean up");
-        //         } else {
-        //             console.log("removed pdfTest.pdf");
-        //         }
-        //     });
-        // }
+        if (FS.existsSync(`${__dirname}\\pdfTest.pdf`)) {
+            FS.unlink(`${__dirname}\\pdfTest.pdf`, (err) => {
+                if (err) {
+                    console.log("failed to clean up");
+                } else {
+                    console.log("removed pdfTest.pdf");
+                }
+            });
+        }
     });
 });
 
