@@ -20,7 +20,7 @@ module.exports = {
         }
     },
 
-    deleteLocalFile: (fileName) => {
+    removeLocalFile: (fileName) => {
         if (FS.existsSync(fileName)) {
             FS.unlinkSync(fileName);
             return true;
