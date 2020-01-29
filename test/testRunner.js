@@ -41,39 +41,39 @@ describe("Server Functionality Test", () => {
 
             });
     });
-    var createdPDF = false;
-    it('Positive: Get Combined PDF', function (done) {
-        this.timeout(5000);
-        chai.request(target)
-            .post('/pdfCombine')
-            .set('Content-Type', 'application/octet-stream')
-            .send(FS.readFileSync('./test/testValidPdf.zip'))
-            .end(function (err, res) {
-                expect(err).to.be.null;
-                expect(res).to.have.status(200);
-                res.on('data', function (chunk) {
-                    FS.writeFileSync(`${__dirname}\\testCombined.pdf`, chunk);
-                });
-                res.on('end', function () {
-                    if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
-                        isValidPDF(FS.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
-                            expect(check.isPDF).to.be.true;
-                            createdPDF = true;
-                            done();
-                        });
-                    } else {
-                        console.log("File not written successfully");
-                        createdPDF = false;
-                        done();
-                    }
-                });
-            });
-    });
+    // var createdPDF = false;
+    // it('Positive: Get Combined PDF', function (done) {
+    //     this.timeout(5000);
+    //     chai.request(target)
+    //         .post('/pdfCombine')
+    //         .set('Content-Type', 'application/octet-stream')
+    //         .send(FS.readFileSync('./test/testValidPdf.zip'))
+    //         .end(function (err, res) {
+    //             expect(err).to.be.null;
+    //             expect(res).to.have.status(200);
+    //             res.on('data', function (chunk) {
+    //                 FS.writeFileSync(`${__dirname}\\testCombined.pdf`, chunk);
+    //             });
+    //             res.on('end', function () {
+    //                 if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
+    //                     isValidPDF(FS.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
+    //                         expect(check.isPDF).to.be.true;
+    //                         createdPDF = true;
+    //                         done();
+    //                     });
+    //                 } else {
+    //                     console.log("File not written successfully");
+    //                     createdPDF = false;
+    //                     done();
+    //                 }
+    //             });
+    //         });
+    // });
 
-    it("Get Combined PDF: Successfully wrote to PDF", function (done) {
-        expect(createdPDF).to.be.true;
-        done();
-    });
+    // it("Get Combined PDF: Successfully wrote to PDF", function (done) {
+    //     expect(createdPDF).to.be.true;
+    //     done();
+    // });
 
 
 

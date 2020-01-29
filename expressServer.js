@@ -200,14 +200,14 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 const json = JSON.parse(FS.readFileSync(newDir + "\\specList.json"));
                 let bytes;
                 try {
-                    console.log(pdfName);
                     bytes = PDFMNGR.compile(pdfName, json);
+                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
                 } catch (errMsg) {
                     console.log(errMsg);
                 } if (bytes) {
                     res.status = 201;
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(bytes);
+                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager compile returned empty');
