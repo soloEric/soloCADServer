@@ -44,6 +44,5 @@ function getLastKey(json) {
 }
 
 function resolvePaths(fileName) {
-    //return `${__dirname}\\..\\spec_sheets\\${fileName}`;
-    return `C:\\Users\\Eric\\Desktop\\fileServerPackage\\expressServer\\spec_sheets\\${fileName}`;
+    return `${__dirname}\\..\\spec_sheets\\${fileName}`;
 }
