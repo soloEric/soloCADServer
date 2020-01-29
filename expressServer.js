@@ -194,42 +194,27 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 for (const file of files) {
                     LOGGER.log(`Loading Parameter: ${file}`);
                     if (file.substring(file.length - 4) === ".pdf") {
-                        pdfName = file;
+                        pdfName = newDir + '\\' + file;
                     }
                 }
-                const pyJSON = FS.readFileSync(newDir + "\\specList.json");
-                //Call Python to create pdf
-                const combinePy = SPAWN('python', [PYTHON_SCRIPTS['combinePy'], newDir, pdfName, pyJSON]);
-                combinePy.stdout.on('data', (data) => {
-                    if (data) {
-                        LOGGER.log(`Python pdf combine returned with response: ${data.toString()}`);
-                        //respond to client with pdf
-
-                        if (FS.existsSync(newDir + '/Combined CAD.pdf')) {
-                            //return combined pdf
-                            let combinedPdf = FS.readFileSync(newDir + '/Combined CAD.pdf')
-                            res.status = 201;
-                            res.send(combinedPdf);
-                        } else {
-                            res.status = 500;
-                            res.send("Server Error #");
-                        }
-                        FLDMNGR.removeLocalFolder(newDir);
-                    }
-                    else {
-                        LOGGER.log('python combine script failed to create file');
-                        res.status = 500;
-                        res.send('Server Error #');
-                        FLDMNGR.removeLocalFolder(newDir);
-                    }
-                });
-                combinePy.stderr.on('data', (data) => {
-                    LOGGER.log(`python Combine error: ${data.toString()}`);
-
-                });
-                combinePy.on('close', (code) => {
-                    LOGGER.log(`python Combine exited with code ${code}`);
-                });
+                const json = JSON.parse(FS.readFileSync(newDir + "\\specList.json"));
+                let bytes;
+                try {
+                    console.log(pdfName);
+                    bytes = PDFMNGR.compile(pdfName, json);
+                } catch (errMsg) {
+                    console.log(errMsg);
+                } if (bytes) {
+                    res.status = 201;
+                    res.set('Content-Type', 'application/octet-stream');
+                    res.send(bytes);
+                    FLDMNGR.removeLocalFolder(newDir);
+                } else {
+                    LOGGER.log('PDF Manager compile returned empty');
+                    res.status = 500;
+                    res.send('Server Error #');
+                    FLDMNGR.removeLocalFolder(newDir);
+                }
             }
         });
     } catch (err) {

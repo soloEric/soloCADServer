@@ -52,8 +52,7 @@ describe("Server Functionality Test", () => {
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 res.on('data', function (chunk) {
-                    FS.appendFileSync(`${__dirname}\\testCombined.pdf`, chunk);
-
+                    FS.writeFileSync(`${__dirname}\\testCombined.pdf`, chunk);
                 });
                 res.on('end', function () {
                     if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
@@ -152,18 +151,11 @@ describe("Server Functionality Test", () => {
 
     it('pdfManager compile test 1', function (done) {
         firstPdf = `${__dirname}\\test_files\\testCAD.pdf`;
-
-
-        pdfM.compile(firstPdf, testJson, `${__dirname}/pdfTest.pdf`)
-            .then(function (data) {
-                if (!data) {
-                    console.log(data);
-                } else {
-                    expect(FS.existsSync(`${__dirname}/pdfTest.pdf`)).to.be.true;
-                }
-            }).catch(error => {
-                console.log(error);
-            }).then(() => { done(); });
+        const bytes = pdfM.compile(firstPdf, testJson);
+        
+        FS.writeFileSync(`${__dirname}\\compiledCad.pdf`, bytes);
+        expect(FS.existsSync(`${__dirname}\\compiledCad.pdf`)).to.be.true;
+        done();
 
     });
 
@@ -215,8 +207,8 @@ describe("Server Functionality Test", () => {
                 FS.unlinkSync(path.join(__dirname, file));
             }
         }
-        if (FS.existsSync(`${__dirname}\\pdfTest.pdf`)) {
-            FS.unlink(`${__dirname}\\pdfTest.pdf`, (err) => {
+        if (FS.existsSync(`${__dirname}\\compiledCad.pdf`)) {
+            FS.unlink(`${__dirname}\\compiledCad.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
