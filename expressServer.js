@@ -17,7 +17,7 @@ const INVERTERS_JSON = require('./equipment_data/inverters.json');
 const RAILINGS_JSON = require('./equipment_data/railings.json');
 const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
 
-const SPAWN = require('child_process').spawn;
+// const SPAWN = require('child_process').spawn;
 const AdmZip = require('adm-zip');
 
 const FS = require('fs');
