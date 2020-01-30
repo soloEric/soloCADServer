@@ -1,4 +1,3 @@
-const pdfMerge = require('pdf-merge');
 const pdfLib = require('pdf-lib');
 const FS = require('fs');
 
