@@ -4,6 +4,7 @@ const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
 const FLDMNGR = require('./tools/folderManager');
 const DWGIMP = require('./tools/dwgImport');
+const PDFMNGR = require('./Managers/pdfManager')
 
 const HOST_NAME = '192.168.0.126';
 const PORT = '8080';
@@ -89,75 +90,30 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
         } else {
             let zip = new AdmZip();
             for (const file of files) {
-
                 LOGGER.log(PATH.join(`./${funcFolderName}`, file));
                 zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
             }
             res.set('status', 201);
-            res.set('Accept', MIME_TYPE['.dwg.zip']);
+            res.set('Accept', MIME_TYPE['.zip']);
             res.send(zip.toBuffer());
             LOGGER.log("Successfully Sent XREF Zip");
         }
     }
     //clean up
     FLDMNGR.removeLocalFolder(funcFolderName);
-
-
-    // // pass in JSON and local folder name, python will put files in local folder
-    // const pythonProcess = SPAWN('python', [PYTHON_SCRIPTS['dwg_import'], JSON.stringify(req.body), funcFolderName]);
-    // pythonProcess.stdout.on('data', (data) => {
-
-    //     if (data) {
-    //         LOGGER.log(data.toString());
-
-    //         //FIXME: zip up data created by python and send
-    //         let zip = new AdmZip();
-    //         //python copies dwgs to folder, then zip up all .dwgs
-
-
-    //         res.status = 201;
-    //         res.send('placeholder: return zip folder here');
-    //         // clean up
-    //         FLDMNGR.removeLocalFolder(funcFolderName);
-    //     }
-    //     else {
-    //         LOGGER.log("Error: triggered data event with empty data");
-    //         res.status = 500;
-    //         res.send("Server Error");
-    //         // clean up
-    //         FLDMNGR.removeLocalFolder(funcFolderName);
-    //     }
-    // });
-
-    // pythonProcess.stdout.on('end', (data) => {
-    //     //check if headers sent
-    //     if (!res.headersSent) {
-    //         LOGGER.log("Error: data event was not triggered")
-    //         res.status = 500;
-    //         res.send("Server Error");
-    //         // clean up
-    //         FLDMNGR.removeLocalFolder(funcFolderName);
-    //     }
-    // });
-
-    // pythonProcess.stderr.on('data', (data) => {
-    //     LOGGER.log(`stderr triggered data event with:\n${data.toString()}`);
-    //     res.status = 500;
-    //     res.send("Server Error");
-    //     // clean up
-    //     FLDMNGR.removeLocalFolder(funcFolderName);
-    // });
 });
 
 APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfCombine`);
 
-    let serverZipFileName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.zip`
+    let serverZipFileName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}_pdfCombine.zip`
     req.pipe(FS.createWriteStream(`${__dirname}/${serverZipFileName}`));
     try {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
-                serverFailureCleanup(res, "Server did not accept File", err, new Array(`${__dirname}/${serverZipFileName}`), null);
+                res.status = 500;
+                res.send("Server Error #");
+                FLDMNGR.removeLocalFolder(serverZipFileName);
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
@@ -172,55 +128,36 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                         FS.unlinkSync(__dirname + "\\" + serverZipFileName);
                     }
                 } catch (error) {
-                    serverFailureCleanup(res, "Server Failure: extraction", error, new Array(`${__dirname}/${serverZipFileName}`), new Array(newDir));
+                    res.status = 500;
+                    res.send("Server Error #");
+                    FLDMNGR.removeLocalFolder(serverZipFileName);
                 }
                 let files = FS.readdirSync(newDir);
                 let pdfName;
                 for (const file of files) {
                     LOGGER.log(`Loading Parameter: ${file}`);
                     if (file.substring(file.length - 4) === ".pdf") {
-                        pdfName = file;
+                        pdfName = newDir + '\\' + file;
                     }
                 }
-                const pyJSON = FS.readFileSync(newDir + "\\specList.json");
-                //Call Python to create pdf
-                const combinePy = SPAWN('python', [PYTHON_SCRIPTS['combinePy'], newDir, pdfName, pyJSON]);
-                combinePy.stdout.on('data', (data) => {
-                    if (data) {
-                        LOGGER.log(`Python pdf combine returned with response: ${data.toString()}`);
-                        //respond to client with pdf
-
-                        if (FS.existsSync(newDir + '/Combined CAD.pdf')) {
-                            //return combined pdf
-                            let combinedPdf = FS.readFileSync(newDir + '/Combined CAD.pdf')
-                            res.status = 201;
-                            res.send(combinedPdf);
-                        } else {
-                            serverFailureCleanup(res, 'Server Failure: Python failed', null, null);
-                        }
-                        //delete files from server
-                        files = FS.readdirSync(newDir);
-                        for (const file of files) {
-                            FS.unlinkSync(PATH.join(newDir, file), err => {
-                                if (err) throw err;
-                            })
-                        }
-                        FS.rmdirSync(newDir);
-                    }
-                    else {
-                        LOGGER.log('python combine script failed to create file');
-                        res.status = 500;
-                        res.send('Internal Server Error: Python failed');
-                        serverFailureCleanup(res, 'Server Failure: Python failed', null, new Array(newDir));
-                    }
-                });
-                combinePy.stderr.on('data', (data) => {
-                    LOGGER.log(`python Combine error: ${data.toString()}`);
-
-                });
-                combinePy.on('close', (code) => {
-                    LOGGER.log(`python Combine exited with code ${code}`);
-                });
+                const json = JSON.parse(FS.readFileSync(newDir + "\\specList.json"));
+                let bytes;
+                try {
+                    bytes = PDFMNGR.compile(pdfName, json);
+                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                } catch (errMsg) {
+                    console.log(errMsg);
+                } if (bytes) {
+                    res.status = 201;
+                    res.set('Content-Type', 'application/octet-stream');
+                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    FLDMNGR.removeLocalFolder(newDir);
+                } else {
+                    LOGGER.log('PDF Manager compile returned empty');
+                    res.status = 500;
+                    res.send('Server Error #');
+                    FLDMNGR.removeLocalFolder(newDir);
+                }
             }
         });
     } catch (err) {
@@ -271,45 +208,3 @@ APP.use(function (req, res, next) {
 var server = APP.listen(PORT, function () {
     console.log(`server running on ${HOST_NAME}:${PORT}\n`);
 });
-
-// Takes a server response and sends the response msg
-// deletes files and folders from list
-// TODO: create more specific error handling
-function serverFailureCleanup(res, responseMsg, err, fileList, folderList) {
-    res.statusCode = 500;
-    res.send(responseMsg);
-    try {
-        if (fileList != null) {
-            fileList.forEach(element => {
-                if (FS.existsSync(element)) {
-                    FS.unlinkSync(element);
-                }
-            });
-        }
-        if (folderList != null) {
-            folderList.forEach(element => {
-                if (FS.existsSync(element)) {
-                    FS.readdirSync(element, function (err, files) {
-                        if (err) {
-                            LOGGER.log("Error occured in serverFailureCleanup");
-                            return;
-                        } else {
-                            if (!files.length) {
-                                FS.rmdirSync(element);
-                            } else {
-                                for (const file of files) {
-                                    FS.unlinkSync(path.join(folder, file));
-                                }
-                                FS.rmdirSync(element);
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    } catch (error) {
-        LOGGER.log("Clean up failed", error);
-    }
-    LOGGER.log(`Server Failed with error: ${err}\nCleaning files`);
-}
-
