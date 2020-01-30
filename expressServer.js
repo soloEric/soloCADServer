@@ -103,63 +103,6 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
     FLDMNGR.removeLocalFolder(funcFolderName);
 });
 
-// APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
-//     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfCombine`);
-
-//     let serverZipFileName = `${req.connection.remoteAddress.substring(req.connection.remoteAddress.length - 3)}_${Date.now().toString().substr(Date.now().toString().length - 8)}.zip`
-//     console.log(serverZipFileName);
-//     req.pipe(FS.createWriteStream(`${__dirname}/${serverZipFileName}`));
-//     try {
-//         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
-//             if (err) {
-//                 res.status = 500;
-//                 res.send("Server Error #");
-//                 FLDMNGR.removeLocalFolder(serverZipFileName);
-//             } else {
-//                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
-
-//                 //unzip file
-//                 let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
-//                 try {
-//                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
-
-//                     if (!FS.existsSync(newDir)) {
-//                         FS.mkdirSync(newDir);
-//                         zip.extractAllTo(newDir);
-//                         FS.unlinkSync(__dirname + "\\" + serverZipFileName);
-//                     }
-//                 } catch (error) {
-//                     res.status = 500;
-//                     res.send("Server Error #");
-//                     FLDMNGR.removeLocalFolder(serverZipFileName);
-//                 }
-//                 let files = FS.readdirSync(newDir);
-//                 let pdfName;
-//                 for (const file of files) {
-//                     LOGGER.log(`Loading Parameter: ${file}`);
-//                     if (file.substring(file.length - 4) === ".pdf") {
-//                         pdfName = file;
-//                     }
-//                 }
-//                 const json = FS.readFileSync(newDir + "\\specList.json");
-
-//                 PDFMNGR.compile(FS.readFileSync(`${newDir}\\${pdfName}`), json, `${newDir}\\combined.pdf`).then(function (buffer) {
-//                     res.status = 201;
-//                     console.log();
-//                     res.send(FS.readFileSync(`${newDir}\\combined.pdf`));
-//                     FLDMNGR.removeLocalFolder(newDir);
-//                 }, (err) => {
-//                     LOGGER.log(err);
-//                     FLDMNGR.removeLocalFolder(newDir);
-//                 });
-//             }
-//         });
-//     } catch (err) {
-//         LOGGER.log(err);
-//     }
-// });
-
-
 APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfCombine`);
 
@@ -203,7 +146,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                     bytes = PDFMNGR.compile(pdfName, json);
                     FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
                 } catch (errMsg) {
-                    console.log(errMsg);
+                    LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status = 201;
                     res.set('Content-Type', 'application/octet-stream');
