@@ -136,6 +136,38 @@ describe("Server Functionality Test", () => {
             });
     });
 
+    it('pdfManager compile test 1', function (done) {
+        firstPdf = `${__dirname}\\test_files\\testCAD.pdf`;
+        const bytes = pdfM.compile(firstPdf, testJson);
+
+        FS.writeFileSync(`${__dirname}\\compiledCad.pdf`, bytes);
+        expect(FS.existsSync(`${__dirname}\\compiledCad.pdf`)).to.be.true;
+        done();
+
+    });
+
+    it('pdfManager insert test 1: Single Page insert', function (done) {
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}\\insert_test_1`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'singlePage.pdf') {
+                insert = file;
+            }
+        }
+
+        const bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_1');
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}\\insert_test_1.pdf`, bytes);
+        }
+        done();
+    });
+
     it("server should remove local files related to request", function (done) {
 
         const dirs = getDirectories('./');
@@ -148,17 +180,7 @@ describe("Server Functionality Test", () => {
         }
         done();
     });
-
-    it('pdfManager compile test 1', function (done) {
-        firstPdf = `${__dirname}\\test_files\\testCAD.pdf`;
-        const bytes = pdfM.compile(firstPdf, testJson);
-        
-        FS.writeFileSync(`${__dirname}\\compiledCad.pdf`, bytes);
-        expect(FS.existsSync(`${__dirname}\\compiledCad.pdf`)).to.be.true;
-        done();
-
-    });
-
+    
     //************************************************************************************************ */
 
     before(function (done) {
@@ -212,7 +234,16 @@ describe("Server Functionality Test", () => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
-                    console.log("removed pdfTest.pdf");
+                    console.log("removed  compiledCad.pdf");
+                }
+            });
+        }
+        if (FS.existsSync(`${__dirname}\\insert_test_1.pdf`)) {
+            FS.unlink(`${__dirname}\\insert_test_1.pdf`, (err) => {
+                if (err) {
+                    console.log("failed to clean up");
+                } else {
+                    console.log("removed insert_test_1.pdf");
                 }
             });
         }

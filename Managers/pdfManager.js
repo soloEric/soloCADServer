@@ -35,14 +35,18 @@ module.exports = {
     // at index. reqFolder should be the name of the folder 
     // where the pdf files are located
     // Note: untested as of 1/30/2020
+    // FIXME :: validate index number
     insert: (toInsert, intoPdf, index, reqFolder) => {
-        const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(toInsert, reqFolder)));
-        const donorPDF = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(intoPdf, reqFolder)));
+        const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(intoPdf, reqFolder)));
+        const donorPDF = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(toInsert, reqFolder)));
         let i;
-        let pgIndex = index;
+        let pgIndex = index - 1;
         const numPages = donorPDF.getPages().length;
-        for (i = 0; i < numPages + index; ++i) {
-            pdfDoc.insertPage(pgIndex, donorPDF.getPages()[i]);
+        // console.log('numPages', numPages);
+        for (i = 0; i < numPages; ++i) {
+            const donorPage = donorPDF.getPages()[i];
+            // console.log('insert index', pgIndex);
+            pdfDoc.insertPage(pgIndex, donorPage);
             ++pgIndex;
         }
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
