@@ -7,7 +7,7 @@ const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
 
 const HOST_NAME = '192.168.0.126';
-const PORT = '8081';
+const PORT = '8080';
 
 
 
@@ -17,7 +17,7 @@ const INVERTERS_JSON = require('./equipment_data/inverters.json');
 const RAILINGS_JSON = require('./equipment_data/railings.json');
 const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
 
-const SPAWN = require('child_process').spawn;
+// const SPAWN = require('child_process').spawn;
 const AdmZip = require('adm-zip');
 
 const FS = require('fs');
@@ -164,7 +164,6 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
         LOGGER.log(err);
     }
 });
-
 
 // This option is currently not needed
 //  Update this route when we move to a client that doesn't need updating. 

@@ -1,9 +1,13 @@
-const pdfMerge = require('pdf-merge');
 const pdfLib = require('pdf-lib');
 const FS = require('fs');
 
 module.exports = {
 
+    // given the file name of the first pdf, will load and locate the 
+    // pdf files and compile them. Returns bytes. For some reason
+    // sending these bytes directly won't return a valid pdf to the
+    // client. But using fs, save to disk then read back into memory
+    // and sending that to the client works
     compile: function (firstPdf, json) {
         const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(firstPdf));
         for (key in json) {
@@ -27,10 +31,42 @@ module.exports = {
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
     },
 
-    insert: (toInsert, intoPdf, afterPageNum, reqFolder) => {
+    // Given name of pdfs, will insert the first pdf into second 
+    // at index. reqFolder should be the name of the folder 
+    // where the pdf files are located
+    // Note: untested as of 1/30/2020
+    insert: (toInsert, intoPdf, index, reqFolder) => {
+        const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(toInsert, reqFolder)));
+        const donorPDF = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(intoPdf, reqFolder)));
+        let i;
+        let pgIndex = index;
+        const numPages = donorPDF.getPages().length;
+        for (i = 0; i < numPages + index; ++i) {
+            pdfDoc.insertPage(pgIndex, donorPDF.getPages()[i]);
+            ++pgIndex;
+        }
+        return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
+    },
 
+    // Takes json from reqFolder as order list. Compiles pdfs
+    // returns bytes.
+    // untested as of 1/30/2020
+    // check for protected pdfs submitted and handle those
+    compileFromClient: (json, reqFolder) => {
+        let count = 0;
+        let pdfDoc;
+        for (key in json) {
+            if (count === 0) {
+                pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(resolvePathFolder(json[key], reqFolder)));
+            } else {
+                const donorPDF = pdfLib.PDFDocumentFactory.load(FS.readFile(resolvePathFolder(json[key], reqFolder)));
+                for (let i = 0; i < donorPDF.getPages().length; ++i) {
+                    pdfDoc.addPage(donorPDF.getPages()[i]);
+                }
+            }
+        }
+        return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
     }
-
 };
 
 function getLastKey(json) {
@@ -45,4 +81,7 @@ function getLastKey(json) {
 
 function resolvePaths(fileName) {
     return `${__dirname}\\..\\spec_sheets\\${fileName}`;
+}
+function resolvePathFolder(fileName, folder) {
+    return `${__dirname}\\..\\${folder}\\${fileName}`;
 }

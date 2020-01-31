@@ -19,7 +19,6 @@ module.exports = {
         const other_sld = 'other_sld.dwg';
         const labels = 'labels.dwg';
 
-
         // get paths from json obj
         const company_folder = json['xl_company'];
         const mounting_detail_folder = json['xl_mounting_detail'];
