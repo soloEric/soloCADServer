@@ -8,7 +8,7 @@ const AdmZip = require('adm-zip');
 const path = require('path');
 const pdfM = require('../Managers/pdfManager');
 
-const testJson = require('./test_files/specList.json');
+const testJson = require('./compile_test_1/specList.json');
 
 chai.use(chaiHttp);
 var expect = chai.expect;
@@ -136,14 +136,25 @@ describe("Server Functionality Test", () => {
             });
     });
 
-    it('pdfManager compile test 1', function (done) {
-        firstPdf = `${__dirname}\\test_files\\testCAD.pdf`;
-        const bytes = pdfM.compile(firstPdf, testJson);
+    it('pdfManager compile local test 1', function (done) {
+        firstPdf = `${__dirname}\\compile_test_1\\testCAD.pdf`;
+        const bytes = pdfM.compileLocal(firstPdf, testJson);
 
         FS.writeFileSync(`${__dirname}\\compiledCad.pdf`, bytes);
         expect(FS.existsSync(`${__dirname}\\compiledCad.pdf`)).to.be.true;
         done();
 
+    });
+
+    it ('pdfManager compile client test 1', function (done) {
+        // const json = require('./compile_client_test_1/order.json');
+        // json = JSON.parse(json);
+        let bytes = pdfM.compile('test\\compile_client_test_1');
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}\\compile_client_test_1.pdf`, bytes);
+        }
+        done();
     });
 
     it('pdfManager insert test 1: Single Page insert', function (done) {
@@ -159,12 +170,75 @@ describe("Server Functionality Test", () => {
                 insert = file;
             }
         }
-
-        const bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_1');
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_1');
+        } catch (err) {
+            console.log(err);
+            bytes = NaN;
+        }
         expect(bytes).to.not.be.NaN;
         if (bytes) {
             FS.writeFileSync(`${__dirname}\\insert_test_1.pdf`, bytes);
         }
+        done();
+    });
+
+    it('pdfManager insert test 2: Multiple Page insert', function (done) {
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}\\insert_test_2`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'multiplePages.pdf') {
+                insert = file;
+            }
+        }
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_2');
+        } catch (err) {
+            console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}\\insert_test_2.pdf`, bytes);
+        }
+        done();
+    });
+
+    it('pdfManager insert test 3: Index Boundaries', function (done) {
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}\\insert_test_2`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'multiplePages.pdf') {
+                insert = file;
+            }
+        }
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 0, 'test\\insert_test_2');
+        } catch (err) {
+            // console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.be.NaN;
+        try {
+            bytes = pdfM.insert(insert, into, 11, 'test\\insert_test_2');
+        } catch (err) {
+            // console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.be.NaN;
         done();
     });
 
@@ -180,7 +254,7 @@ describe("Server Functionality Test", () => {
         }
         done();
     });
-    
+
     //************************************************************************************************ */
 
     before(function (done) {
@@ -234,7 +308,7 @@ describe("Server Functionality Test", () => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
-                    console.log("removed  compiledCad.pdf");
+                    console.log("removed compiledCad.pdf");
                 }
             });
         }
@@ -244,6 +318,25 @@ describe("Server Functionality Test", () => {
                     console.log("failed to clean up");
                 } else {
                     console.log("removed insert_test_1.pdf");
+                }
+            });
+        }
+        if (FS.existsSync(`${__dirname}\\insert_test_2.pdf`)) {
+            FS.unlink(`${__dirname}\\insert_test_2.pdf`, (err) => {
+                if (err) {
+                    console.log("failed to clean up");
+                } else {
+                    console.log("removed insert_test_2.pdf");
+                }
+            });
+        }
+        
+        if (FS.existsSync(`${__dirname}\\compile_client_test_1.pdf`)) {
+            FS.unlink(`${__dirname}\\compile_client_test_1.pdf`, (err) => {
+                if (err) {
+                    console.log("failed to clean up");
+                } else {
+                    console.log("compile_client_test_1.pdf");
                 }
             });
         }
