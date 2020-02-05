@@ -35,7 +35,7 @@ describe("Server Functionality Test", () => {
             .send()
             .end(function (err, res) {
                 expect(err).to.be.null;
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(201);
                 expect(res).to.not.be.NaN;
                 done();
 
