@@ -43,8 +43,6 @@ const APP = EXPRESS();
 const BODY_PARSER = require('body-parser');
 
 APP.use(QUEUE({ activeLimit: 2, queuedLimit: -1 }));
-APP.use(errorHandler);
-APP.use(logErrors);
 const JSON_PARSER = BODY_PARSER.json();
 
 const RAW_PARSER = function (req, res, next) {
@@ -58,17 +56,6 @@ const RAW_PARSER = function (req, res, next) {
         next();
     });
 }
-function errorHandler(err, req, res, next) {
-    res.statusCode = 500;
-    res.send();
-}
-
-function logErrors(err, req, res, next) {
-    console.error(TIMESTAMP.stamp(), err.stack);
-    LOGGER.log(err.stack);
-    next(err);
-}
-
 
 // Client sends JSON file with parameter values for dwg import
 // Server creates local folder for Python to create dwg dump
@@ -93,7 +80,7 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
                 LOGGER.log(PATH.join(`./${funcFolderName}`, file));
                 zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
             }
-            res.set('status', 201);
+            res.status(201);
             res.set('Accept', MIME_TYPE['.zip']);
             res.send(zip.toBuffer());
             LOGGER.log("Successfully Sent XREF Zip");
