@@ -6,7 +6,3 @@ Need npm installed for node package installation
 run npm init to download packages in package.json
 run npm test to run http tests of server. Be sure to run server on command line first
 ports are hard coded to 8080 and local ip
-
-must have downloaded PDFtk 
-https://www.pdflabs.com/tools/pdftk-server/
-or (debian) run apt-get install pdftk 
