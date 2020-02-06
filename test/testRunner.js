@@ -7,13 +7,15 @@ const pdf = require('pdf-parse');
 const AdmZip = require('adm-zip');
 const path = require('path');
 const pdfM = require('../Managers/pdfManager');
+const INTERCON = require('../tools/interconnection');
 
 const testJson = require('./compile_test_1/specList.json');
+const interconTest1 = require('./interconTests/interconTest1.json');
 
 chai.use(chaiHttp);
 var expect = chai.expect;
 
-const target = 'http://192.168.0.126:8080';
+const target = 'http://192.168.0.126:8081';
 const FS = require('fs');
 var dwgImportPosData;
 var dwgImportNegData;
@@ -35,12 +37,17 @@ describe("Server Functionality Test", () => {
             .send()
             .end(function (err, res) {
                 expect(err).to.be.null;
-                expect(res).to.have.status(201);
+                expect(res).to.have.status(200);
                 expect(res).to.not.be.NaN;
                 done();
 
             });
     });
+    it("Interconnections Test 1", done => {
+        INTERCON.calculate(interconTest1, './');
+        done();
+
+    })
     // var createdPDF = false;
     // it('Positive: Get Combined PDF', function (done) {
     //     this.timeout(5000);
@@ -89,7 +96,7 @@ describe("Server Functionality Test", () => {
             .parse(binaryParser)
             .end(function (err, res) {
                 expect(err).to.be.null;
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(201);
 
                 let zip = new AdmZip(res.body);
                 const zipEntries = zip.getEntries();

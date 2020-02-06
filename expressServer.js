@@ -2,12 +2,12 @@
 const CATTER = require('./tools/catter');
 const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
-const FLDMNGR = require('./tools/folderManager');
+const FLDMNGR = require('./Managers/folderManager');
 const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
 
 const HOST_NAME = '192.168.0.126';
-const PORT = '8080';
+const PORT = '8081';
 
 
 
@@ -56,6 +56,38 @@ const RAW_PARSER = function (req, res, next) {
         next();
     });
 }
+
+APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /InterconCalc`);
+
+    //create local folder
+    let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.InterconCalc`;
+    FLDMNGR.createLocalFolder(funcFolderName);
+
+    // expects a json
+    // DO INTERCONNECTION CALC
+    // return list of possible interconnections
+
+    // if (FS.existsSync(funcFolderName)) {
+    //     let files = FS.readdirSync(funcFolderName);
+    //     if (!files.length) {
+    //         res.status(500);
+    //         res.send("Server Error");
+    //     } else {
+    //         let zip = new AdmZip();
+    //         for (const file of files) {
+    //             LOGGER.log(PATH.join(`./${funcFolderName}`, file));
+    //             zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
+    //         }
+    //         res.status(201);
+    //         res.set('Accept', MIME_TYPE['.zip']);
+    //         res.send(zip.toBuffer());
+            
+    //     }
+    // }
+    //clean up
+    FLDMNGR.removeLocalFolder(funcFolderName);
+});
 
 // Client sends JSON file with parameter values for dwg import
 // Server creates local folder for Python to create dwg dump
@@ -153,7 +185,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
 });
 
 APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
-    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfInsert`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfCombineClient`);
 
     let serverZipFileName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}_pdfInsert.zip`
     req.pipe(FS.createWriteStream(`${__dirname}/${serverZipFileName}`));
@@ -307,7 +339,7 @@ APP.route('/requestEquip').get(function (req, res, next) {
 
 //default pathway
 APP.get('/', (function (req, res, next) {
-    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to / for Instructions`);
+    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to for Instructions`);
     res.send('INSTRUCTIONS FOR APP USE\n' +
         'To auto fill customer information, click Import CSV\n\n' +
         'To Download equipment specsheets, have your equipment info selected ' +
