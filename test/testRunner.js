@@ -11,6 +11,7 @@ const INTERCON = require('../tools/interconnection');
 
 const testJson = require('./compile_test_1/specList.json');
 const interconTest1 = require('./interconTests/interconTest1.json');
+const interconTest2 = require('./interconTests/interconTest2.json');
 
 chai.use(chaiHttp);
 var expect = chai.expect;
@@ -47,7 +48,12 @@ describe("Server Functionality Test", () => {
         INTERCON.calculate(interconTest1, './');
         done();
 
-    })
+    });
+    it("Interconnections Test 2", done => {
+        INTERCON.calculate(interconTest2, './');
+        done();
+
+    });
     // var createdPDF = false;
     // it('Positive: Get Combined PDF', function (done) {
     //     this.timeout(5000);

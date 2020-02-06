@@ -18,17 +18,27 @@ module.exports = {
         // unpack json
 
         let interconnections = interconnection_calc(json['xl_busbar'], json['xl_main_breaker'], 1.2, json['xl_pv_breaker'],
-            json['xl_bsa_bool'], json['xl_mmc_bool'], json['xl_ahj_taps_bool'],
-            json['xl_utility_taps_bool'], json['xl_meter_can_tap_bool'],
-            json['xl_quad_bool'], json['xl_sub_bsa_bool'], json['xl_sub_bus_input'],
-            json['xl_sub_main_input'], json['xl_main_breaker_only_bool'],
-            json['xl_wire_size_ampacity'], json['xl_existing_generator']);
+            stringToBoolean(json['xl_bsa_bool']), stringToBoolean(json['xl_mmc_bool']),
+            stringToBoolean(json['xl_ahj_taps_bool']), stringToBoolean(json['xl_utility_taps_bool']),
+            stringToBoolean(json['xl_meter_can_tap_bool']), stringToBoolean(json['xl_quad_bool']),
+            stringToBoolean(json['xl_sub_bsa_bool']), json['xl_sub_bus_input'],
+            json['xl_sub_main_input'], stringToBoolean(json['xl_main_breaker_only_bool']),
+            json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
 
         console.log(interconnections);
         // write out list of possible interconnections to list
 
     }
 
+}
+
+
+function stringToBoolean(string) {
+    switch (string.toLowerCase().trim()) {
+        case "true": case "yes": case "1": return true;
+        case "false": case "no": case "0": case null: return false;
+        default: return Boolean(string);
+    }
 }
 
 function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_input, bsa_bool, mmc_bool, ahj_taps_bool,
