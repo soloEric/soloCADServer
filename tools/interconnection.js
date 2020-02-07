@@ -286,9 +286,10 @@ function supply_side_tap(ahj_taps_bool_input, utility_taps_bool_input) {
 
 // FIXME: check this is working correctly
 function replace_list_item(some_list, item_to_be_replaced, new_item) {
-    for (item of some_list) {
-        if (item == item_to_be_replaced) {
-            some_list[item] = new_item;
+    
+    for (let i = 0; i < some_list.length; ++i) {
+        if (some_list[i] == item_to_be_replaced) {
+            some_list[i] = new_item;
         }
     }
 }
