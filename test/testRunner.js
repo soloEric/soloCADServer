@@ -17,7 +17,7 @@ const interconTest3 = require('./interconTests/interconTest3.json');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
-const target = 'http://192.168.0.126:8081';
+const target = 'http://192.168.0.126:8080';
 const FS = require('fs');
 var dwgImportPosData;
 var dwgImportNegData;
