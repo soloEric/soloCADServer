@@ -8,7 +8,7 @@ module.exports = {
     // sending these bytes directly won't return a valid pdf to the
     // client. But using fs, save to disk then read back into memory
     // and sending that to the client works
-    compileLocal: function (firstPdf, json) {
+    compileLocal: (firstPdf, json) => {
         const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(firstPdf));
         for (key in json) {
             let bytes;
@@ -103,18 +103,19 @@ module.exports = {
         }
         
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
+    },
+
+    // FIXME: Complete this
+    extractPages: (reqFolder, pdf, pgNumStr) => {
+        let pdfDoc;
+        // parse with , deliminator
+        // parse range/single int
+        // create extracted pages
+        // 
     }
 };
 
-function getLastKey(json) {
-    let last = '';
-    for (const key in json) {
-        if (json.hasOwnProperty(key)) {
-            last = key;
-        }
-    }
-    return last;
-}
+
 
 function resolvePaths(fileName) {
     return `${__dirname}\\..\\spec_sheets\\${fileName}`;
