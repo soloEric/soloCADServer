@@ -12,6 +12,7 @@ const INTERCON = require('../tools/interconnection');
 const testJson = require('./compile_test_1/specList.json');
 const interconTest1 = require('./interconTests/interconTest1.json');
 const interconTest2 = require('./interconTests/interconTest2.json');
+const interconTest3 = require('./interconTests/interconTest3.json');
 
 chai.use(chaiHttp);
 var expect = chai.expect;
@@ -51,6 +52,11 @@ describe("Server Functionality Test", () => {
     });
     it("Interconnections Test 2", done => {
         INTERCON.calculate(interconTest2, './');
+        done();
+
+    });
+    it("Interconnections Test 3", done => {
+        INTERCON.calculate(interconTest3, './');
         done();
 
     });
