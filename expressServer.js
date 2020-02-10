@@ -81,7 +81,7 @@ APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
     //         res.status(201);
     //         res.set('Accept', MIME_TYPE['.zip']);
     //         res.send(zip.toBuffer());
-            
+
     //     }
     // }
     //clean up
@@ -175,7 +175,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send('Server Error 203');
                     FLDMNGR.removeLocalFolder(newDir);
-		    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -214,7 +214,7 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send("Server Error 302");
                     FLDMNGR.removeLocalFile(serverZipFileName);
-		    FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
@@ -234,7 +234,7 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send('Server Error 303');
                     FLDMNGR.removeLocalFolder(newDir);
-		    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -274,7 +274,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send("Server Error 402");
                     FLDMNGR.removeLocalFile(serverZipFileName);
-		    FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
                 const files = FS.readdirSync(newDir);
@@ -294,7 +294,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send("Server Error 403");
                     FLDMNGR.removeLocalFile(serverZipFileName);
-		    FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
@@ -314,7 +314,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     res.status(500);
                     res.send('Server Error 404');
                     FLDMNGR.removeLocalFolder(newDir);
-		    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -353,12 +353,12 @@ APP.get('/', (function (req, res, next) {
         'make sure your equipment is selected and then click Attach From Server Specs ' +
         'Then select your CAD you want pdfs attached to. Then look ' +
         'for a pdf called "Combined Cad.pdf" in your current excel directory\n' +
-	'To attach specs individually, click "Attach Spec Sheets", ' +
-	'Type in the number of pdfs being combined, then select each pdf ' + 
-	'in the order you want them to be combined\n' +
-	'To insert a pdf into another, click "Insert PDF into PDF, ' +
-	'then select the pdf to insert into, then select the pdf to insert, ' +
-	'followed by the page number to insert at');
+        'To attach specs individually, click "Attach Spec Sheets", ' +
+        'Type in the number of pdfs being combined, then select each pdf ' +
+        'in the order you want them to be combined\n' +
+        'To insert a pdf into another, click "Insert PDF into PDF, ' +
+        'then select the pdf to insert into, then select the pdf to insert, ' +
+        'followed by the page number to insert at');
 }));
 
 //all other unhandled pathway
