@@ -118,11 +118,11 @@ module.exports = {
 
 
 function resolvePaths(fileName) {
-    return `${__dirname}\\..\\spec_sheets\\${fileName}`;
+    return `${__dirname}/../spec_sheets/${fileName}`;
 }
 function resolvePathFile(fileName, folder) {
-    return `${__dirname}\\..\\${folder}\\${fileName}`;
+    return `${__dirname}/../${folder}/${fileName}`;
 }
 function resolvePathFolder(folder) {
-    return `${__dirname}\\..\\${folder}`;
+    return `${__dirname}/../${folder}`;
 }

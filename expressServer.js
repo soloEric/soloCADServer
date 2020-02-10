@@ -6,8 +6,8 @@ const FLDMNGR = require('./Managers/folderManager');
 const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
 
-const HOST_NAME = '192.168.0.126';
-const PORT = '8081';
+const HOST_NAME = '192.168.1.224';
+const PORT = '8080';
 
 
 
@@ -137,14 +137,14 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
 
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
@@ -156,20 +156,20 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 for (const file of files) {
                     LOGGER.log(`Loading Parameter: ${file}`);
                     if (file.substring(file.length - 4) === ".pdf") {
-                        pdfName = newDir + '\\' + file;
+                        pdfName = newDir + '/' + file;
                     }
                 }
-                const json = JSON.parse(FS.readFileSync(newDir + "\\specList.json"));
+                const json = JSON.parse(FS.readFileSync(newDir + "/specList.json"));
                 let bytes;
                 try {
                     bytes = PDFMNGR.compileLocal(pdfName, json);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager compile returned empty');
@@ -200,7 +200,7 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 let newDirName = serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
@@ -208,7 +208,7 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
@@ -220,13 +220,13 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                 let bytes;
                 try {
                     bytes = PDFMNGR.compile(newDirName);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
@@ -258,7 +258,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 let newDirName = serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
@@ -266,7 +266,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
@@ -278,7 +278,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                 let json;
                 for (const file of files) {
                     if (file.substr(file.length - 5) === ".json") {
-                        json = JSON.parse(FS.readFileSync(newDir + `\\${file}`));
+                        json = JSON.parse(FS.readFileSync(newDir + `/${file}`));
                         break;
                     }
                 }
@@ -297,13 +297,13 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                 let bytes;
                 try {
                     bytes = PDFMNGR.insert(toInsert, intoPdf, index, newDirName);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
