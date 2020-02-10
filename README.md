@@ -19,3 +19,6 @@ enter command-- forever list
 
 to stop a process:
 enter command-- forever stop <name_of_file.js>
+
+go to dev2qa.com/how-to-run-node-js-server-in-background/
+for more info/examples
