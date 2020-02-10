@@ -99,7 +99,7 @@ describe("Server Functionality Test", () => {
     it("Test server response to unsupported pdfs");
 
     it("DwgImport: valid paths", function (done) {
-        this.timeout(3000);
+        this.timeout(5000);
         chai.request(target)
             .post('/dwgImport')
             .set('Content-Type', 'application/json')
@@ -141,7 +141,7 @@ describe("Server Functionality Test", () => {
             });
     });
     it("DwgImport: invalid fileNames", function (done) {
-        this.timeout(3000);
+        this.timeout(5000);
         //console.log(dwgImportPosData);
         chai.request(target)
             .post('/dwgImport')
@@ -156,7 +156,8 @@ describe("Server Functionality Test", () => {
     });
 
     it('pdfManager compile local test 1', function (done) {
-        firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
+        this.timeout(5000);
+	firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
         const bytes = pdfM.compileLocal(firstPdf, testJson);
 
         FS.writeFileSync(`${__dirname}/compiledCad.pdf`, bytes);
@@ -177,7 +178,8 @@ describe("Server Functionality Test", () => {
     });
 
     it('pdfManager insert test 1: Single Page insert', function (done) {
-        let insert;
+        this.timeout(5000);
+	let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_1`);
@@ -204,7 +206,8 @@ describe("Server Functionality Test", () => {
     });
 
     it('pdfManager insert test 2: Multiple Page insert', function (done) {
-        let insert;
+        this.timeout(5000);
+	let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_2`);
@@ -231,7 +234,8 @@ describe("Server Functionality Test", () => {
     });
 
     it('pdfManager insert test 3: Index Boundaries', function (done) {
-        let insert;
+        this.timeout(5000);
+	let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_2`);

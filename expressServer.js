@@ -1,4 +1,3 @@
-
 const CATTER = require('./tools/catter');
 const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
@@ -105,7 +104,7 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
         let files = FS.readdirSync(funcFolderName);
         if (!files.length) {
             res.status(500);
-            res.send("Server Error");
+            res.send("Server Error 101");
         } else {
             let zip = new AdmZip();
             for (const file of files) {
@@ -131,8 +130,8 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 201");
+                FLDMNGR.removeLocalFile(serverZipFileName);
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
@@ -148,8 +147,8 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 202");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
                 const files = FS.readdirSync(newDir);
                 let pdfName;
@@ -174,8 +173,9 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                 } else {
                     LOGGER.log('PDF Manager compile returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 203');
                     FLDMNGR.removeLocalFolder(newDir);
+		    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -193,8 +193,8 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 301");
+                FLDMNGR.removeLocalFile(serverZipFileName);
                 return;
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
@@ -212,8 +212,9 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 302");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+		    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
@@ -231,8 +232,9 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 303');
                     FLDMNGR.removeLocalFolder(newDir);
+		    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -251,8 +253,8 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 401");
+                FLDMNGR.removeLocalFile(serverZipFileName);
                 return;
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
@@ -270,8 +272,9 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 402");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+		    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
                 const files = FS.readdirSync(newDir);
@@ -289,8 +292,9 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     index = json["index"];
                 } else {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 403");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+		    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
@@ -308,8 +312,9 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 404');
                     FLDMNGR.removeLocalFolder(newDir);
+		    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -345,9 +350,15 @@ APP.get('/', (function (req, res, next) {
         'To Download equipment specsheets, have your equipment info selected ' +
         'then click "Download SpecSheets"\n\n' +
         'To Download a pdf of your CAD with specSheets attached,\n' +
-        'make sure your equipment is selected and then click Attach SpecSheets ' +
+        'make sure your equipment is selected and then click Attach From Server Specs ' +
         'Then select your CAD you want pdfs attached to. Then look ' +
-        'for a pdf called "Combined Cad.pdf" in your current excel directory');
+        'for a pdf called "Combined Cad.pdf" in your current excel directory\n' +
+	'To attach specs individually, click "Attach Spec Sheets", ' +
+	'Type in the number of pdfs being combined, then select each pdf ' + 
+	'in the order you want them to be combined\n' +
+	'To insert a pdf into another, click "Insert PDF into PDF, ' +
+	'then select the pdf to insert into, then select the pdf to insert, ' +
+	'followed by the page number to insert at');
 }));
 
 //all other unhandled pathway
