@@ -14,8 +14,10 @@ const w_smm = "with Smart Management Module"
 
 module.exports = {
 
-    calculate: function (json, folder) {
+    calculate: function (json) {
         // unpack json
+
+        console.log(json);
 
         let interconnections = interconnection_calc(json['xl_busbar'], json['xl_main_breaker'], 1.2, json['xl_pv_breaker'],
             stringToBoolean(json['xl_bsa_bool']), stringToBoolean(json['xl_mmc_bool']),
@@ -25,8 +27,8 @@ module.exports = {
             json['xl_sub_main_input'], stringToBoolean(json['xl_main_breaker_only_bool']),
             json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
 
-        console.log(interconnections);
         // write out list of possible interconnections to list
+        return interconnections;
 
     }
 
@@ -34,6 +36,7 @@ module.exports = {
 
 
 function stringToBoolean(string) {
+    if (string == undefined || string === "") return false;
     switch (string.toLowerCase().trim()) {
         case "true": case "yes": case "1": return true;
         case "false": case "no": case "0": case null: return false;
@@ -286,7 +289,7 @@ function supply_side_tap(ahj_taps_bool_input, utility_taps_bool_input) {
 
 // FIXME: check this is working correctly
 function replace_list_item(some_list, item_to_be_replaced, new_item) {
-    
+
     for (let i = 0; i < some_list.length; ++i) {
         if (some_list[i] == item_to_be_replaced) {
             some_list[i] = new_item;

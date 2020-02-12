@@ -4,8 +4,9 @@ const LOGGER = require('./tools/logger');
 const FLDMNGR = require('./Managers/folderManager');
 const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
+const INTERCON = require('./tools/interconnection');
 
-const HOST_NAME = '192.168.1.224';
+const HOST_NAME = '192.168.0.126';
 const PORT = '8080';
 
 
@@ -58,34 +59,16 @@ const RAW_PARSER = function (req, res, next) {
 
 APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /InterconCalc`);
+    console.log(req.body);
 
-    //create local folder
-    let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.InterconCalc`;
-    FLDMNGR.createLocalFolder(funcFolderName);
-
-    // expects a json
-    // DO INTERCONNECTION CALC
-    // return list of possible interconnections
-
-    // if (FS.existsSync(funcFolderName)) {
-    //     let files = FS.readdirSync(funcFolderName);
-    //     if (!files.length) {
-    //         res.status(500);
-    //         res.send("Server Error");
-    //     } else {
-    //         let zip = new AdmZip();
-    //         for (const file of files) {
-    //             LOGGER.log(PATH.join(`./${funcFolderName}`, file));
-    //             zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
-    //         }
-    //         res.status(201);
-    //         res.set('Accept', MIME_TYPE['.zip']);
-    //         res.send(zip.toBuffer());
-
-    //     }
-    // }
-    //clean up
-    FLDMNGR.removeLocalFolder(funcFolderName);
+    let conlist = INTERCON.calculate(req.body);
+    if (conlist.length > 0) {
+        res.status(201);
+        res.send(conlist);
+    } else {
+        res.status(500);
+        res.send("Server Error 501");
+    }
 });
 
 // Client sends JSON file with parameter values for dwg import
