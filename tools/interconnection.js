@@ -25,9 +25,8 @@ module.exports = {
             json['xl_sub_main_input'], stringToBoolean(json['xl_main_breaker_only_bool']),
             json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
 
-        console.log(interconnections);
         // write out list of possible interconnections to list
-
+	return interconnections;
     }
 
 }

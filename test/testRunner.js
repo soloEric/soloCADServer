@@ -46,17 +46,17 @@ describe("Server Functionality Test", () => {
             });
     });
     it("Interconnections Test 1", done => {
-        INTERCON.calculate(interconTest1, './');
+        console.log(INTERCON.calculate(interconTest1, './'));
         done();
 
     });
     it("Interconnections Test 2", done => {
-        INTERCON.calculate(interconTest2, './');
+        console.log(INTERCON.calculate(interconTest2, './'));
         done();
 
     });
     it("Interconnections Test 3", done => {
-        INTERCON.calculate(interconTest3, './');
+        console.log(INTERCON.calculate(interconTest3, './'));
         done();
 
     });
