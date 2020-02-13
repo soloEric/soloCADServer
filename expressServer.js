@@ -11,11 +11,11 @@ const PORT = '8080';
 
 
 
-//const companiesJSON = require('./equipment_data/companies.json');
-const MODULES_JSON = require('./equipment_data/modules.json');
-const INVERTERS_JSON = require('./equipment_data/inverters.json');
-const RAILINGS_JSON = require('./equipment_data/railings.json');
-const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
+// const companiesJSON = require('./equipment_data/companies.json');
+// const MODULES_JSON = require('./equipment_data/modules.json');
+// const INVERTERS_JSON = require('./equipment_data/inverters.json');
+// const RAILINGS_JSON = require('./equipment_data/railings.json');
+// const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
 
 // const SPAWN = require('child_process').spawn;
 const AdmZip = require('adm-zip');
@@ -59,16 +59,14 @@ const RAW_PARSER = function (req, res, next) {
 
 APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /InterconCalc`);
-    console.log(req.body);
-
-    let conlist = INTERCON.calculate(req.body);
-    if (conlist.length > 0) {
-        res.status(201);
-        res.send(conlist);
-    } else {
-        res.status(500);
-        res.send("Server Error 501");
-    }
+	let conlist = INTERCON.calculate(req.body);
+	if (conlist.length > 0) {
+		res.status(201);
+		res.send(conlist);
+	} else {
+		res.status(500);
+		res.send("Server Error 501");
+	}
 });
 
 // Client sends JSON file with parameter values for dwg import
