@@ -112,7 +112,7 @@ describe("Server Functionality Test", () => {
 
                 let zip = new AdmZip(res.body);
                 const zipEntries = zip.getEntries();
-                expect(zipEntries.length).to.equal(5);
+                expect(zipEntries.length).to.equal(6);
                 zip.extractAllTo(`${__dirname}`);
 
                 let batt = false;
@@ -120,23 +120,28 @@ describe("Server Functionality Test", () => {
                 let intercon = false;
                 let meter = false;
                 let other = false;
+		let mntdet = true;
                 for (const file of zipEntries) {
-                    switch (file.name) {
-                        case 'batt.dwg':
-                            batt = true;
-                        case 'company_logo.dwg':
-                            comp = true;
-                        case 'interconnections.dwg':
-                            intercon = true;
-                        case 'meter_boi.dwg':
-                            meter = true;
-                        case 'other_sld.dwg':
-                            other = true;
-                        default:
-                        // console.log(`${file.name} shouldn't be here`);
+                   // console.log(file.name);
+			switch (file.name) {
+                        	case 'batt.dwg':
+	                            batt = true;
+        	                case 'company_logo.dwg':
+                	            comp = true;
+				case 'interconnections.dwg':
+        	                    intercon = true;
+				case 'meter_boi.dwg':
+      		                     meter = true;
+                        	case 'other_sld.dwg':
+ 				     other = true;
+				case 'mounting_detail.dwg':
+				     mntdet = true;
+                        	default:
+                        	     console.log(`${file.name} shouldn't be here`);
                     }
                 }
-                expect(batt && comp && intercon && meter && other).to.be.true;
+console.log("done calling");
+                expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
                 done();
             });
     });
@@ -150,7 +155,7 @@ describe("Server Functionality Test", () => {
             .send(dwgImportNegData)
             .end(function (err, res) {
                 expect(err).to.be.null;
-                expect(res.text).to.equal('Server Error');
+                expect(res.text).to.equal('Server Error 101');
                 done();
             });
     });
