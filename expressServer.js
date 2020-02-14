@@ -348,10 +348,12 @@ APP.get('/getSpec', (function (req, res, next) {
     if (FS.existsSync(__dirname + `/spec_sheets/${spec}`)) {
         res.status(200);
         res.send(FS.readFileSync(__dirname + `/spec_sheets/${spec}`));
-        LOGGER.log
+        LOGGER.log(`Sent: ${spec}`);
     } else {
         res.status(500);
-        res.send(`Server is Missing ${spec}`)
+        let error = `Server is Missing ${spec}`;
+        res.send(error);
+        LOGGER.log(error);
     }
 
 }));
