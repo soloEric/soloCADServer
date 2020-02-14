@@ -140,7 +140,6 @@ describe("Server Functionality Test", () => {
                         	     console.log(`${file.name} shouldn't be here`);
                     }
                 }
-console.log("done calling");
                 expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
                 done();
             });
