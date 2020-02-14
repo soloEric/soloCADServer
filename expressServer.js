@@ -6,7 +6,7 @@ const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
 const INTERCON = require('./tools/interconnection');
 
-const HOST_NAME = '192.168.0.126';
+const HOST_NAME = '192.168.1.18';
 const PORT = '8080';
 
 
