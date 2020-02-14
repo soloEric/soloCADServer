@@ -44,7 +44,7 @@ const BODY_PARSER = require('body-parser');
 
 APP.use(QUEUE({ activeLimit: 2, queuedLimit: -1 }));
 const JSON_PARSER = BODY_PARSER.json();
-// const STRING_PARSER = BODY_PARSER.toString();
+const STRING_PARSER = BODY_PARSER.text();
 
 const RAW_PARSER = function (req, res, next) {
     req.rawBody = [];
@@ -343,7 +343,7 @@ APP.get('/', (function (req, res, next) {
         'followed by the page number to insert at');
 }));
 
-APP.route('/getSpec').post(function (req, res, next) {
+APP.route('/getSpec').post(STRING_PARSER, function(req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /getSpec`);
     let spec = req.body;
     if (FS.existsSync(__dirname + `/spec_sheets/${spec}`)) {
