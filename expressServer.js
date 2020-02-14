@@ -59,14 +59,14 @@ const RAW_PARSER = function (req, res, next) {
 
 APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /InterconCalc`);
-	let conlist = INTERCON.calculate(req.body);
-	if (conlist.length > 0) {
-		res.status(201);
-		res.send(conlist);
-	} else {
-		res.status(500);
-		res.send("Server Error 501");
-	}
+    let conlist = INTERCON.calculate(req.body);
+    if (conlist.length > 0) {
+        res.status(201);
+        res.send(conlist);
+    } else {
+        res.status(500);
+        res.send("Server Error 501");
+    }
 });
 
 // Client sends JSON file with parameter values for dwg import
@@ -308,7 +308,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
 //  Update this route when we move to a client that doesn't need updating. 
 // Client requests a list of available equipment to populate dropdowns in excel file
 APP.route('/requestEquip').get(function (req, res, next) {
-    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /requestEquip`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /requestEquip`);
     res.statusCode = 200;
     res.set('Content-Type', MIME_TYPE['.json']);
 
@@ -325,7 +325,7 @@ APP.route('/requestEquip').get(function (req, res, next) {
 
 //default pathway
 APP.get('/', (function (req, res, next) {
-    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to for Instructions`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} for Instructions`);
     res.send('INSTRUCTIONS FOR APP USE\n' +
         'To auto fill customer information, click Import CSV\n\n' +
         'To Download equipment specsheets, have your equipment info selected ' +
@@ -340,6 +340,20 @@ APP.get('/', (function (req, res, next) {
         'To insert a pdf into another, click "Insert PDF into PDF, ' +
         'then select the pdf to insert into, then select the pdf to insert, ' +
         'followed by the page number to insert at');
+}));
+
+APP.get('/getSpec', (function (req, res, next) {
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /getSpec`);
+    let spec = req.body;
+    if (FS.existsSync(__dirname + `/spec_sheets/${spec}`)) {
+        res.status(200);
+        res.send(FS.readFileSync(__dirname + `/spec_sheets/${spec}`));
+        LOGGER.log
+    } else {
+        res.status(500);
+        res.send(`Server is Missing ${spec}`)
+    }
+
 }));
 
 //all other unhandled pathway
