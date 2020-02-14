@@ -343,9 +343,9 @@ APP.get('/', (function (req, res, next) {
         'followed by the page number to insert at');
 }));
 
-APP.route('/getSpec').get(STRING_PARSER, function(req, res, next) {
+APP.route('/getSpec').post(JSON_PARSER, function(req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /getSpec`);
-    let spec = req.body;
+    let spec = req.body['target'];
     if (FS.existsSync(__dirname + `/spec_sheets/${spec}`)) {
         res.status(200);
         res.send(FS.readFileSync(__dirname + `/spec_sheets/${spec}`));
