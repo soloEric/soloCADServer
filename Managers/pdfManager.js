@@ -14,10 +14,12 @@ module.exports = {
         for (key in json) {
             let bytes;
             const pdf = resolvePaths(json[key]);
-
-            if (FS.existsSync(pdf) && (added.find(json[key]) == undefined)) {
+            let result = added.find(ele => ele == json[key]);
+            if (FS.existsSync(pdf)) {
                 // console.log(`Exists: ${pdf}`);
-                bytes = FS.readFileSync(pdf);
+                if (!result) {
+                    bytes = FS.readFileSync(pdf);
+                }
             } else {
                 throw `PDF ${json[key]} unsupported`;
             }
@@ -103,7 +105,7 @@ module.exports = {
                 }
             }
         }
-        
+
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
     },
 
