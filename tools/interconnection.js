@@ -26,7 +26,7 @@ module.exports = {
             json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
 
         // write out list of possible interconnections to list
-	return interconnections;
+        return interconnections;
     }
 
 }

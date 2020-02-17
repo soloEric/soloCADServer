@@ -17,7 +17,7 @@ const interconTest3 = require('./interconTests/interconTest3.json');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
-const target = 'http://192.168.1.18:8080';
+const target = 'http://192.168.0.126:8080';
 const FS = require('fs');
 var dwgImportPosData;
 var dwgImportNegData;
@@ -120,22 +120,22 @@ describe("Server Functionality Test", () => {
                 let intercon = false;
                 let meter = false;
                 let other = false;
-		let mntdet = false;
+                let mntdet = false;
                 for (const file of zipEntries) {
-                   
-			switch (file.entryName) {
-                        	case "batt.dwg":
-	                            batt = true;
-        	                case "company_logo.dwg":
-                	            comp = true;
-				case "interconnections.dwg":
-        	                    intercon = true;
-				case "meter_boi.dwg":
-      		                     meter = true;
-                        	case "other_sld.dwg":
- 				     other = true;
-				case "mounting_detail.dwg":
-				     mntdet = true;
+
+                    switch (file.entryName) {
+                        case "batt.dwg":
+                            batt = true;
+                        case "company_logo.dwg":
+                            comp = true;
+                        case "interconnections.dwg":
+                            intercon = true;
+                        case "meter_boi.dwg":
+                            meter = true;
+                        case "other_sld.dwg":
+                            other = true;
+                        case "mounting_detail.dwg":
+                            mntdet = true;
                     }
                 }
                 expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
@@ -159,7 +159,7 @@ describe("Server Functionality Test", () => {
 
     it('pdfManager compile local test 1', function (done) {
         this.timeout(5000);
-	firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
+        firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
         const bytes = pdfM.compileLocal(firstPdf, testJson);
 
         FS.writeFileSync(`${__dirname}/compiledCad.pdf`, bytes);
@@ -168,7 +168,7 @@ describe("Server Functionality Test", () => {
 
     });
 
-    it ('pdfManager compile client test 1', function (done) {
+    it('pdfManager compile client test 1', function (done) {
         // const json = require('./compile_client_test_1/order.json');
         // json = JSON.parse(json);
         let bytes = pdfM.compile('test/compile_client_test_1');
@@ -181,7 +181,7 @@ describe("Server Functionality Test", () => {
 
     it('pdfManager insert test 1: Single Page insert', function (done) {
         this.timeout(5000);
-	let insert;
+        let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_1`);
@@ -209,7 +209,7 @@ describe("Server Functionality Test", () => {
 
     it('pdfManager insert test 2: Multiple Page insert', function (done) {
         this.timeout(5000);
-	let insert;
+        let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_2`);
@@ -237,7 +237,7 @@ describe("Server Functionality Test", () => {
 
     it('pdfManager insert test 3: Index Boundaries', function (done) {
         this.timeout(5000);
-	let insert;
+        let insert;
         let into;
 
         const files = FS.readdirSync(`${__dirname}/insert_test_2`);
@@ -355,7 +355,7 @@ describe("Server Functionality Test", () => {
                 }
             });
         }
-        
+
         if (FS.existsSync(`${__dirname}/compile_client_test_1.pdf`)) {
             FS.unlink(`${__dirname}/compile_client_test_1.pdf`, (err) => {
                 if (err) {

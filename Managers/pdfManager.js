@@ -10,11 +10,12 @@ module.exports = {
     // and sending that to the client works
     compileLocal: (firstPdf, json) => {
         const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(firstPdf));
+        let added = [];
         for (key in json) {
             let bytes;
             const pdf = resolvePaths(json[key]);
 
-            if (FS.existsSync(pdf)) {
+            if (FS.existsSync(pdf) && (added.find(json[key]) == undefined)) {
                 // console.log(`Exists: ${pdf}`);
                 bytes = FS.readFileSync(pdf);
             } else {
@@ -26,6 +27,7 @@ module.exports = {
                     pdfDoc.addPage(donorPDF.getPages()[i]);
                     // console.log('added page');
                 }
+                added.push(json[key]);
             }
         }
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
