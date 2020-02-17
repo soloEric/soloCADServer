@@ -99,7 +99,7 @@ describe("Server Functionality Test", () => {
     it("Test server response to unsupported pdfs");
 
     it("DwgImport: valid paths", function (done) {
-        this.timeout(5000);
+        this.timeout(10000);
         chai.request(target)
             .post('/dwgImport')
             .set('Content-Type', 'application/json')
@@ -120,27 +120,27 @@ describe("Server Functionality Test", () => {
                 let intercon = false;
                 let meter = false;
                 let other = false;
-		let mntdet = true;
+		let mntdet = false;
                 for (const file of zipEntries) {
-                   // console.log(file.name);
-			switch (file.name) {
-                        	case 'batt.dwg':
+                   
+			switch (file.entryName) {
+                        	case "batt.dwg":
 	                            batt = true;
-        	                case 'company_logo.dwg':
+        	                case "company_logo.dwg":
                 	            comp = true;
-				case 'interconnections.dwg':
+				case "interconnections.dwg":
         	                    intercon = true;
-				case 'meter_boi.dwg':
+				case "meter_boi.dwg":
       		                     meter = true;
-                        	case 'other_sld.dwg':
+                        	case "other_sld.dwg":
  				     other = true;
-				case 'mounting_detail.dwg':
+				case "mounting_detail.dwg":
 				     mntdet = true;
-                        	default:
-                        	     console.log(`${file.name} shouldn't be here`);
                     }
                 }
+		console.log('last check');
                 expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
+		console.log('calling done');
                 done();
             });
     });
