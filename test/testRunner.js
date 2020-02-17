@@ -138,9 +138,7 @@ describe("Server Functionality Test", () => {
 				     mntdet = true;
                     }
                 }
-		console.log('last check');
                 expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
-		console.log('calling done');
                 done();
             });
     });
