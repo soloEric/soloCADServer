@@ -17,8 +17,6 @@ module.exports = {
     calculate: function (json) {
         // unpack json
 
-        console.log(json);
-
         let interconnections = interconnection_calc(json['xl_busbar'], json['xl_main_breaker'], 1.2, json['xl_pv_breaker'],
             stringToBoolean(json['xl_bsa_bool']), stringToBoolean(json['xl_mmc_bool']),
             stringToBoolean(json['xl_ahj_taps_bool']), stringToBoolean(json['xl_utility_taps_bool']),
@@ -28,7 +26,7 @@ module.exports = {
             json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
 
         // write out list of possible interconnections to list
-	return interconnections;
+        return interconnections;
     }
 
 }
