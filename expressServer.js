@@ -1,21 +1,21 @@
-
 const CATTER = require('./tools/catter');
 const TIMESTAMP = require('./tools/timeStamp');
 const LOGGER = require('./tools/logger');
 const FLDMNGR = require('./Managers/folderManager');
 const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
+const INTERCON = require('./tools/interconnection');
 
-const HOST_NAME = '192.168.0.126';
+const HOST_NAME = '192.168.1.18';
 const PORT = '8080';
 
 
 
-//const companiesJSON = require('./equipment_data/companies.json');
-const MODULES_JSON = require('./equipment_data/modules.json');
-const INVERTERS_JSON = require('./equipment_data/inverters.json');
-const RAILINGS_JSON = require('./equipment_data/railings.json');
-const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
+// const companiesJSON = require('./equipment_data/companies.json');
+// const MODULES_JSON = require('./equipment_data/modules.json');
+// const INVERTERS_JSON = require('./equipment_data/inverters.json');
+// const RAILINGS_JSON = require('./equipment_data/railings.json');
+// const ATTACHMENTS_JSON = require('./equipment_data/attachments.json')
 
 // const SPAWN = require('child_process').spawn;
 const AdmZip = require('adm-zip');
@@ -44,6 +44,7 @@ const BODY_PARSER = require('body-parser');
 
 APP.use(QUEUE({ activeLimit: 2, queuedLimit: -1 }));
 const JSON_PARSER = BODY_PARSER.json();
+const STRING_PARSER = BODY_PARSER.text('text');
 
 const RAW_PARSER = function (req, res, next) {
     req.rawBody = [];
@@ -59,34 +60,14 @@ const RAW_PARSER = function (req, res, next) {
 
 APP.route('/InterconCalc').post(JSON_PARSER, function (req, res, next) {
     LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /InterconCalc`);
-
-    //create local folder
-    let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.InterconCalc`;
-    FLDMNGR.createLocalFolder(funcFolderName);
-
-    // expects a json
-    // DO INTERCONNECTION CALC
-    // return list of possible interconnections
-
-    // if (FS.existsSync(funcFolderName)) {
-    //     let files = FS.readdirSync(funcFolderName);
-    //     if (!files.length) {
-    //         res.status(500);
-    //         res.send("Server Error");
-    //     } else {
-    //         let zip = new AdmZip();
-    //         for (const file of files) {
-    //             LOGGER.log(PATH.join(`./${funcFolderName}`, file));
-    //             zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
-    //         }
-    //         res.status(201);
-    //         res.set('Accept', MIME_TYPE['.zip']);
-    //         res.send(zip.toBuffer());
-            
-    //     }
-    // }
-    //clean up
-    FLDMNGR.removeLocalFolder(funcFolderName);
+    let conlist = INTERCON.calculate(req.body);
+    if (conlist.length > 0) {
+        res.status(201);
+        res.send(conlist);
+    } else {
+        res.status(500);
+        res.send("Server Error 501");
+    }
 });
 
 // Client sends JSON file with parameter values for dwg import
@@ -105,7 +86,7 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
         let files = FS.readdirSync(funcFolderName);
         if (!files.length) {
             res.status(500);
-            res.send("Server Error");
+            res.send("Server Error 101");
         } else {
             let zip = new AdmZip();
             for (const file of files) {
@@ -131,51 +112,52 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 201");
+                FLDMNGR.removeLocalFile(serverZipFileName);
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
 
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 202");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
                 const files = FS.readdirSync(newDir);
                 let pdfName;
                 for (const file of files) {
                     LOGGER.log(`Loading Parameter: ${file}`);
                     if (file.substring(file.length - 4) === ".pdf") {
-                        pdfName = newDir + '\\' + file;
+                        pdfName = newDir + '/' + file;
                     }
                 }
-                const json = JSON.parse(FS.readFileSync(newDir + "\\specList.json"));
+                const json = JSON.parse(FS.readFileSync(newDir + "/specList.json"));
                 let bytes;
                 try {
                     bytes = PDFMNGR.compileLocal(pdfName, json);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager compile returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 203');
                     FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -193,14 +175,14 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 301");
+                FLDMNGR.removeLocalFile(serverZipFileName);
                 return;
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 let newDirName = serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
@@ -208,31 +190,33 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 302");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
                 let bytes;
                 try {
                     bytes = PDFMNGR.compile(newDirName);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 303');
                     FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -251,14 +235,14 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
         FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
             if (err) {
                 res.status(500);
-                res.send("Server Error #");
-                FLDMNGR.removeLocalFolder(serverZipFileName);
+                res.send("Server Error 401");
+                FLDMNGR.removeLocalFile(serverZipFileName);
                 return;
             } else {
                 LOGGER.log(`Writing to file: ${serverZipFileName}`);
 
                 //unzip file
-                let newDir = __dirname + "\\" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
                 let newDirName = serverZipFileName.substring(0, serverZipFileName.length - 4);
                 try {
                     let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
@@ -266,19 +250,20 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     if (!FS.existsSync(newDir)) {
                         FS.mkdirSync(newDir);
                         zip.extractAllTo(newDir);
-                        FS.unlinkSync(__dirname + "\\" + serverZipFileName);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
                     }
                 } catch (error) {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 402");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
                 const files = FS.readdirSync(newDir);
                 let json;
                 for (const file of files) {
                     if (file.substr(file.length - 5) === ".json") {
-                        json = JSON.parse(FS.readFileSync(newDir + `\\${file}`));
+                        json = JSON.parse(FS.readFileSync(newDir + `/${file}`));
                         break;
                     }
                 }
@@ -289,27 +274,29 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     index = json["index"];
                 } else {
                     res.status(500);
-                    res.send("Server Error #");
-                    FLDMNGR.removeLocalFolder(serverZipFileName);
+                    res.send("Server Error 403");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFolder(newDir);
                     return;
                 }
 
                 let bytes;
                 try {
                     bytes = PDFMNGR.insert(toInsert, intoPdf, index, newDirName);
-                    FS.writeFileSync(newDir + '\\sendThis.pdf', bytes);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
                 } catch (errMsg) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
                     res.set('Content-Type', 'application/octet-stream');
-                    res.send(FS.readFileSync(newDir + '\\sendThis.pdf'));
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
                     LOGGER.log('PDF Manager insert returned empty');
                     res.status(500);
-                    res.send('Server Error #');
+                    res.send('Server Error 404');
                     FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
                 }
             }
         });
@@ -322,7 +309,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
 //  Update this route when we move to a client that doesn't need updating. 
 // Client requests a list of available equipment to populate dropdowns in excel file
 APP.route('/requestEquip').get(function (req, res, next) {
-    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /requestEquip`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /requestEquip`);
     res.statusCode = 200;
     res.set('Content-Type', MIME_TYPE['.json']);
 
@@ -339,16 +326,38 @@ APP.route('/requestEquip').get(function (req, res, next) {
 
 //default pathway
 APP.get('/', (function (req, res, next) {
-    console.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to for Instructions`);
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} for Instructions`);
     res.send('INSTRUCTIONS FOR APP USE\n' +
         'To auto fill customer information, click Import CSV\n\n' +
         'To Download equipment specsheets, have your equipment info selected ' +
         'then click "Download SpecSheets"\n\n' +
         'To Download a pdf of your CAD with specSheets attached,\n' +
-        'make sure your equipment is selected and then click Attach SpecSheets ' +
+        'make sure your equipment is selected and then click Attach From Server Specs ' +
         'Then select your CAD you want pdfs attached to. Then look ' +
-        'for a pdf called "Combined Cad.pdf" in your current excel directory');
+        'for a pdf called "Combined Cad.pdf" in your current excel directory\n' +
+        'To attach specs individually, click "Attach Spec Sheets", ' +
+        'Type in the number of pdfs being combined, then select each pdf ' +
+        'in the order you want them to be combined\n' +
+        'To insert a pdf into another, click "Insert PDF into PDF, ' +
+        'then select the pdf to insert into, then select the pdf to insert, ' +
+        'followed by the page number to insert at');
 }));
+
+APP.route('/getSpec').post(JSON_PARSER, function(req, res, next) {
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /getSpec`);
+    let spec = req.body['target'];
+    if (FS.existsSync(__dirname + `/spec_sheets/${spec}`)) {
+        res.status(200);
+        res.send(FS.readFileSync(__dirname + `/spec_sheets/${spec}`));
+        LOGGER.log(`Sent: ${spec}`);
+    } else {
+        res.status(500);
+        let error = `Server is Missing ${spec}`;
+        res.send(error);
+        LOGGER.log(error);
+    }
+
+});
 
 //all other unhandled pathway
 APP.use(function (req, res, next) {

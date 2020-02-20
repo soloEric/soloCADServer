@@ -46,17 +46,17 @@ describe("Server Functionality Test", () => {
             });
     });
     it("Interconnections Test 1", done => {
-        INTERCON.calculate(interconTest1, './');
+        console.log(INTERCON.calculate(interconTest1, './'));
         done();
 
     });
     it("Interconnections Test 2", done => {
-        INTERCON.calculate(interconTest2, './');
+        console.log(INTERCON.calculate(interconTest2, './'));
         done();
 
     });
     it("Interconnections Test 3", done => {
-        INTERCON.calculate(interconTest3, './');
+        console.log(INTERCON.calculate(interconTest3, './'));
         done();
 
     });
@@ -71,11 +71,11 @@ describe("Server Functionality Test", () => {
     //             expect(err).to.be.null;
     //             expect(res).to.have.status(200);
     //             res.on('data', function (chunk) {
-    //                 FS.writeFileSync(`${__dirname}\\testCombined.pdf`, chunk);
+    //                 FS.writeFileSync(`${__dirname}/testCombined.pdf`, chunk);
     //             });
     //             res.on('end', function () {
-    //                 if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
-    //                     isValidPDF(FS.readFileSync(`${__dirname}\\testCombined.pdf`)).then(check => {
+    //                 if (FS.existsSync(`${__dirname}/testCombined.pdf`)) {
+    //                     isValidPDF(FS.readFileSync(`${__dirname}/testCombined.pdf`)).then(check => {
     //                         expect(check.isPDF).to.be.true;
     //                         createdPDF = true;
     //                         done();
@@ -99,7 +99,7 @@ describe("Server Functionality Test", () => {
     it("Test server response to unsupported pdfs");
 
     it("DwgImport: valid paths", function (done) {
-        this.timeout(3000);
+        this.timeout(10000);
         chai.request(target)
             .post('/dwgImport')
             .set('Content-Type', 'application/json')
@@ -112,7 +112,7 @@ describe("Server Functionality Test", () => {
 
                 let zip = new AdmZip(res.body);
                 const zipEntries = zip.getEntries();
-                expect(zipEntries.length).to.equal(5);
+                expect(zipEntries.length).to.equal(6);
                 zip.extractAllTo(`${__dirname}`);
 
                 let batt = false;
@@ -120,28 +120,30 @@ describe("Server Functionality Test", () => {
                 let intercon = false;
                 let meter = false;
                 let other = false;
+                let mntdet = false;
                 for (const file of zipEntries) {
-                    switch (file.name) {
-                        case 'batt.dwg':
+
+                    switch (file.entryName) {
+                        case "batt.dwg":
                             batt = true;
-                        case 'company_logo.dwg':
+                        case "company_logo.dwg":
                             comp = true;
-                        case 'interconnections.dwg':
+                        case "interconnections.dwg":
                             intercon = true;
-                        case 'meter_boi.dwg':
+                        case "meter_boi.dwg":
                             meter = true;
-                        case 'other_sld.dwg':
+                        case "other_sld.dwg":
                             other = true;
-                        default:
-                        // console.log(`${file.name} shouldn't be here`);
+                        case "mounting_detail.dwg":
+                            mntdet = true;
                     }
                 }
-                expect(batt && comp && intercon && meter && other).to.be.true;
+                expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
                 done();
             });
     });
     it("DwgImport: invalid fileNames", function (done) {
-        this.timeout(3000);
+        this.timeout(5000);
         //console.log(dwgImportPosData);
         chai.request(target)
             .post('/dwgImport')
@@ -150,37 +152,39 @@ describe("Server Functionality Test", () => {
             .send(dwgImportNegData)
             .end(function (err, res) {
                 expect(err).to.be.null;
-                expect(res.text).to.equal('Server Error');
+                expect(res.text).to.equal('Server Error 101');
                 done();
             });
     });
 
     it('pdfManager compile local test 1', function (done) {
-        firstPdf = `${__dirname}\\compile_test_1\\testCAD.pdf`;
+        this.timeout(5000);
+        firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
         const bytes = pdfM.compileLocal(firstPdf, testJson);
 
-        FS.writeFileSync(`${__dirname}\\compiledCad.pdf`, bytes);
-        expect(FS.existsSync(`${__dirname}\\compiledCad.pdf`)).to.be.true;
+        FS.writeFileSync(`${__dirname}/compiledCad.pdf`, bytes);
+        expect(FS.existsSync(`${__dirname}/compiledCad.pdf`)).to.be.true;
         done();
 
     });
 
-    it ('pdfManager compile client test 1', function (done) {
+    it('pdfManager compile client test 1', function (done) {
         // const json = require('./compile_client_test_1/order.json');
         // json = JSON.parse(json);
-        let bytes = pdfM.compile('test\\compile_client_test_1');
+        let bytes = pdfM.compile('test/compile_client_test_1');
         expect(bytes).to.not.be.NaN;
         if (bytes) {
-            FS.writeFileSync(`${__dirname}\\compile_client_test_1.pdf`, bytes);
+            FS.writeFileSync(`${__dirname}/compile_client_test_1.pdf`, bytes);
         }
         done();
     });
 
     it('pdfManager insert test 1: Single Page insert', function (done) {
+        this.timeout(5000);
         let insert;
         let into;
 
-        const files = FS.readdirSync(`${__dirname}\\insert_test_1`);
+        const files = FS.readdirSync(`${__dirname}/insert_test_1`);
         for (const file of files) {
             if (file == 'exCAD.pdf') {
                 into = file;
@@ -191,23 +195,24 @@ describe("Server Functionality Test", () => {
         }
         let bytes;
         try {
-            bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_1');
+            bytes = pdfM.insert(insert, into, 2, 'test/insert_test_1');
         } catch (err) {
             console.log(err);
             bytes = NaN;
         }
         expect(bytes).to.not.be.NaN;
         if (bytes) {
-            FS.writeFileSync(`${__dirname}\\insert_test_1.pdf`, bytes);
+            FS.writeFileSync(`${__dirname}/insert_test_1.pdf`, bytes);
         }
         done();
     });
 
     it('pdfManager insert test 2: Multiple Page insert', function (done) {
+        this.timeout(5000);
         let insert;
         let into;
 
-        const files = FS.readdirSync(`${__dirname}\\insert_test_2`);
+        const files = FS.readdirSync(`${__dirname}/insert_test_2`);
         for (const file of files) {
             if (file == 'exCAD.pdf') {
                 into = file;
@@ -218,23 +223,24 @@ describe("Server Functionality Test", () => {
         }
         let bytes;
         try {
-            bytes = pdfM.insert(insert, into, 2, 'test\\insert_test_2');
+            bytes = pdfM.insert(insert, into, 2, 'test/insert_test_2');
         } catch (err) {
             console.log(err);
             bytes = NaN;
         }
         expect(bytes).to.not.be.NaN;
         if (bytes) {
-            FS.writeFileSync(`${__dirname}\\insert_test_2.pdf`, bytes);
+            FS.writeFileSync(`${__dirname}/insert_test_2.pdf`, bytes);
         }
         done();
     });
 
     it('pdfManager insert test 3: Index Boundaries', function (done) {
+        this.timeout(5000);
         let insert;
         let into;
 
-        const files = FS.readdirSync(`${__dirname}\\insert_test_2`);
+        const files = FS.readdirSync(`${__dirname}/insert_test_2`);
         for (const file of files) {
             if (file == 'exCAD.pdf') {
                 into = file;
@@ -245,14 +251,14 @@ describe("Server Functionality Test", () => {
         }
         let bytes;
         try {
-            bytes = pdfM.insert(insert, into, 0, 'test\\insert_test_2');
+            bytes = pdfM.insert(insert, into, 0, 'test/insert_test_2');
         } catch (err) {
             // console.log(err);
             bytes = NaN;
         }
         expect(bytes).to.be.NaN;
         try {
-            bytes = pdfM.insert(insert, into, 11, 'test\\insert_test_2');
+            bytes = pdfM.insert(insert, into, 11, 'test/insert_test_2');
         } catch (err) {
             // console.log(err);
             bytes = NaN;
@@ -278,8 +284,8 @@ describe("Server Functionality Test", () => {
 
     before(function (done) {
         console.log('\t------setting up------');
-        if (FS.existsSync('test\\pos_test_dwg_import.json')) {
-            FS.readFile('test\\pos_test_dwg_import.json', function (err, data) {
+        if (FS.existsSync('test/pos_test_dwg_import.json')) {
+            FS.readFile('test/pos_test_dwg_import.json', function (err, data) {
                 if (err) console.log(err);
                 else {
                     dwgImportPosData = JSON.parse(data);
@@ -290,8 +296,8 @@ describe("Server Functionality Test", () => {
             console.log('major fuckup happened');
             done();
         }
-        if (FS.existsSync('test\\neg_test_dwg_import.json')) {
-            FS.readFile('test\\neg_test_dwg_import.json', function (err, data) {
+        if (FS.existsSync('test/neg_test_dwg_import.json')) {
+            FS.readFile('test/neg_test_dwg_import.json', function (err, data) {
                 if (err) console.log(err);
                 else {
                     dwgImportNegData = JSON.parse(data);
@@ -307,8 +313,8 @@ describe("Server Functionality Test", () => {
 
     after(function () {
         console.log("\ncalling cleanup")
-        if (FS.existsSync(`${__dirname}\\testCombined.pdf`)) {
-            FS.unlink(`${__dirname}\\testCombined.pdf`, (err) => {
+        if (FS.existsSync(`${__dirname}/testCombined.pdf`)) {
+            FS.unlink(`${__dirname}/testCombined.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
@@ -322,8 +328,8 @@ describe("Server Functionality Test", () => {
                 FS.unlinkSync(path.join(__dirname, file));
             }
         }
-        if (FS.existsSync(`${__dirname}\\compiledCad.pdf`)) {
-            FS.unlink(`${__dirname}\\compiledCad.pdf`, (err) => {
+        if (FS.existsSync(`${__dirname}/compiledCad.pdf`)) {
+            FS.unlink(`${__dirname}/compiledCad.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
@@ -331,8 +337,8 @@ describe("Server Functionality Test", () => {
                 }
             });
         }
-        if (FS.existsSync(`${__dirname}\\insert_test_1.pdf`)) {
-            FS.unlink(`${__dirname}\\insert_test_1.pdf`, (err) => {
+        if (FS.existsSync(`${__dirname}/insert_test_1.pdf`)) {
+            FS.unlink(`${__dirname}/insert_test_1.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
@@ -340,8 +346,8 @@ describe("Server Functionality Test", () => {
                 }
             });
         }
-        if (FS.existsSync(`${__dirname}\\insert_test_2.pdf`)) {
-            FS.unlink(`${__dirname}\\insert_test_2.pdf`, (err) => {
+        if (FS.existsSync(`${__dirname}/insert_test_2.pdf`)) {
+            FS.unlink(`${__dirname}/insert_test_2.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {
@@ -349,9 +355,9 @@ describe("Server Functionality Test", () => {
                 }
             });
         }
-        
-        if (FS.existsSync(`${__dirname}\\compile_client_test_1.pdf`)) {
-            FS.unlink(`${__dirname}\\compile_client_test_1.pdf`, (err) => {
+
+        if (FS.existsSync(`${__dirname}/compile_client_test_1.pdf`)) {
+            FS.unlink(`${__dirname}/compile_client_test_1.pdf`, (err) => {
                 if (err) {
                     console.log("failed to clean up");
                 } else {

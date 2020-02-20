@@ -8,15 +8,18 @@ module.exports = {
     // sending these bytes directly won't return a valid pdf to the
     // client. But using fs, save to disk then read back into memory
     // and sending that to the client works
-    compileLocal: function (firstPdf, json) {
+    compileLocal: (firstPdf, json) => {
         const pdfDoc = pdfLib.PDFDocumentFactory.load(FS.readFileSync(firstPdf));
+        let added = [];
         for (key in json) {
             let bytes;
             const pdf = resolvePaths(json[key]);
-
+            let result = added.find(ele => ele == json[key]);
             if (FS.existsSync(pdf)) {
                 // console.log(`Exists: ${pdf}`);
-                bytes = FS.readFileSync(pdf);
+                if (!result) {
+                    bytes = FS.readFileSync(pdf);
+                }
             } else {
                 throw `PDF ${json[key]} unsupported`;
             }
@@ -26,6 +29,7 @@ module.exports = {
                     pdfDoc.addPage(donorPDF.getPages()[i]);
                     // console.log('added page');
                 }
+                added.push(json[key]);
             }
         }
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
@@ -101,27 +105,28 @@ module.exports = {
                 }
             }
         }
-        
+
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
+    },
+
+    // FIXME: Complete this
+    extractPages: (reqFolder, pdf, pgNumStr) => {
+        let pdfDoc;
+        // parse with , deliminator
+        // parse range/single int
+        // create extracted pages
+        // 
     }
 };
 
-function getLastKey(json) {
-    let last = '';
-    for (const key in json) {
-        if (json.hasOwnProperty(key)) {
-            last = key;
-        }
-    }
-    return last;
-}
+
 
 function resolvePaths(fileName) {
-    return `${__dirname}\\..\\spec_sheets\\${fileName}`;
+    return `${__dirname}/../spec_sheets/${fileName}`;
 }
 function resolvePathFile(fileName, folder) {
-    return `${__dirname}\\..\\${folder}\\${fileName}`;
+    return `${__dirname}/../${folder}/${fileName}`;
 }
 function resolvePathFolder(folder) {
-    return `${__dirname}\\..\\${folder}`;
+    return `${__dirname}/../${folder}`;
 }
