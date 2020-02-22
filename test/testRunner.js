@@ -28,7 +28,7 @@ describe("Server Functionality Test", () => {
         const testFolder = "test/extract_tests/ex1";
         let bytes;
         try {
-            bytes = pdfM.extractPages(testFolder, "1,3,6-9,2,10-13, 53,");
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "1,3,6-9,2,10-13, 53,");
         } catch (err) {
             console.log(err);
             expect(false).to.be.true;
@@ -41,7 +41,7 @@ describe("Server Functionality Test", () => {
         const testFolder = "test/extract_tests/ex1";
         let bytes;
         try {
-            bytes = pdfM.extractPages(testFolder, " 5   ,   3  ");
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", " 5   ,   3  ");
         } catch (err) {
             console.log(err);
             expect(false).to.be.true;
@@ -53,7 +53,7 @@ describe("Server Functionality Test", () => {
         const testFolder = "test/extract_tests/ex1";
         let bytes;
         try {
-            bytes = pdfM.extractPages(testFolder, "bullshit");
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "bullshit");
         } catch (err) {
             console.log(err);
             expect(true).to.be.true;
@@ -65,7 +65,7 @@ describe("Server Functionality Test", () => {
         const testFolder = "test/extract_tests/ex1";
         let bytes;
         try {
-            bytes = pdfM.extractPages(testFolder, "0, 0, 0");
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "0, 0, 0");
         } catch (err) {
             console.log(err);
             expect(true).to.be.true;
@@ -77,7 +77,7 @@ describe("Server Functionality Test", () => {
         const testFolder = "test/extract_tests/ex1";
         let bytes;
         try {
-            bytes = pdfM.extractPages(testFolder, "0,6-30,  80");
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "0,6-30,  80");
         } catch (err) {
             console.log(err);
             expect(true).to.be.true;
@@ -87,262 +87,259 @@ describe("Server Functionality Test", () => {
         expect(bytes).to.be.undefined;
         done();
     });
-    // it("Test unhandled paths", done => {
+    it("Test unhandled paths", done => {
+        chai.request(target)
+            .get('/unhandled')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(404);
+                done();
+            });
+    })
+    it("Get Instructions String", done => {
+        chai.request(target)
+            .get('/')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(200);
+                expect(res).to.not.be.NaN;
+                done();
+
+            });
+    });
+    it("Interconnections Test 1", done => {
+        console.log(INTERCON.calculate(interconTest1, './'));
+        done();
+
+    });
+    it("Interconnections Test 2", done => {
+        console.log(INTERCON.calculate(interconTest2, './'));
+        done();
+
+    });
+    it("Interconnections Test 3", done => {
+        console.log(INTERCON.calculate(interconTest3, './'));
+        done();
+
+    });
+    // var createdPDF = false;
+    // it('Positive: Get Combined PDF', function (done) {
+    //     this.timeout(5000);
     //     chai.request(target)
-    //         .get('/unhandled')
-    //         .send()
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(404);
-    //             done();
-    //         });
-    // })
-    // it("Get Instructions String", done => {
-    //     chai.request(target)
-    //         .get('/')
-    //         .send()
+    //         .post('/pdfCombine')
+    //         .set('Content-Type', 'application/octet-stream')
+    //         .send(FS.readFileSync('./test/testValidPdf.zip'))
     //         .end(function (err, res) {
     //             expect(err).to.be.null;
     //             expect(res).to.have.status(200);
-    //             expect(res).to.not.be.NaN;
-    //             done();
-
-    //         });
-    // });
-    // it("Interconnections Test 1", done => {
-    //     console.log(INTERCON.calculate(interconTest1, './'));
-    //     done();
-
-    // });
-    // it("Interconnections Test 2", done => {
-    //     console.log(INTERCON.calculate(interconTest2, './'));
-    //     done();
-
-    // });
-    // it("Interconnections Test 3", done => {
-    //     console.log(INTERCON.calculate(interconTest3, './'));
-    //     done();
-
-    // });
-    // // var createdPDF = false;
-    // // it('Positive: Get Combined PDF', function (done) {
-    // //     this.timeout(5000);
-    // //     chai.request(target)
-    // //         .post('/pdfCombine')
-    // //         .set('Content-Type', 'application/octet-stream')
-    // //         .send(FS.readFileSync('./test/testValidPdf.zip'))
-    // //         .end(function (err, res) {
-    // //             expect(err).to.be.null;
-    // //             expect(res).to.have.status(200);
-    // //             res.on('data', function (chunk) {
-    // //                 FS.writeFileSync(`${__dirname}/testCombined.pdf`, chunk);
-    // //             });
-    // //             res.on('end', function () {
-    // //                 if (FS.existsSync(`${__dirname}/testCombined.pdf`)) {
-    // //                     isValidPDF(FS.readFileSync(`${__dirname}/testCombined.pdf`)).then(check => {
-    // //                         expect(check.isPDF).to.be.true;
-    // //                         createdPDF = true;
-    // //                         done();
-    // //                     });
-    // //                 } else {
-    // //                     console.log("File not written successfully");
-    // //                     createdPDF = false;
-    // //                     done();
-    // //                 }
-    // //             });
-    // //         });
-    // // });
-
-    // // it("Get Combined PDF: Successfully wrote to PDF", function (done) {
-    // //     expect(createdPDF).to.be.true;
-    // //     done();
-    // // });
-
-
-
-    // it("Test server response to unsupported pdfs");
-
-    // it("DwgImport: valid paths", function (done) {
-    //     this.timeout(10000);
-    //     chai.request(target)
-    //         .post('/dwgImport')
-    //         .set('Content-Type', 'application/json')
-    //         .send(dwgImportPosData)
-    //         .buffer()
-    //         .parse(binaryParser)
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res).to.have.status(201);
-
-    //             let zip = new AdmZip(res.body);
-    //             const zipEntries = zip.getEntries();
-    //             expect(zipEntries.length).to.equal(6);
-    //             zip.extractAllTo(`${__dirname}`);
-
-    //             let batt = false;
-    //             let comp = false;
-    //             let intercon = false;
-    //             let meter = false;
-    //             let other = false;
-    //             let mntdet = false;
-    //             for (const file of zipEntries) {
-
-    //                 switch (file.entryName) {
-    //                     case "batt.dwg":
-    //                         batt = true;
-    //                     case "company_logo.dwg":
-    //                         comp = true;
-    //                     case "interconnections.dwg":
-    //                         intercon = true;
-    //                     case "meter_boi.dwg":
-    //                         meter = true;
-    //                     case "other_sld.dwg":
-    //                         other = true;
-    //                     case "mounting_detail.dwg":
-    //                         mntdet = true;
+    //             res.on('data', function (chunk) {
+    //                 FS.writeFileSync(`${__dirname}/testCombined.pdf`, chunk);
+    //             });
+    //             res.on('end', function () {
+    //                 if (FS.existsSync(`${__dirname}/testCombined.pdf`)) {
+    //                     isValidPDF(FS.readFileSync(`${__dirname}/testCombined.pdf`)).then(check => {
+    //                         expect(check.isPDF).to.be.true;
+    //                         createdPDF = true;
+    //                         done();
+    //                     });
+    //                 } else {
+    //                     console.log("File not written successfully");
+    //                     createdPDF = false;
+    //                     done();
     //                 }
-    //             }
-    //             expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
-    //             done();
+    //             });
     //         });
     // });
-    // it("DwgImport: invalid fileNames", function (done) {
-    //     this.timeout(5000);
-    //     //console.log(dwgImportPosData);
-    //     chai.request(target)
-    //         .post('/dwgImport')
-    //         .set('Content-Type', 'application/json')
-    //         .set('Accept', 'text/plain')
-    //         .send(dwgImportNegData)
-    //         .end(function (err, res) {
-    //             expect(err).to.be.null;
-    //             expect(res.text).to.equal('Server Error 101');
-    //             done();
-    //         });
-    // });
-
-    // it('pdfManager compile local test 1', function (done) {
-    //     this.timeout(5000);
-    //     firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
-    //     const bytes = pdfM.compileLocal(firstPdf, testJson);
-
-    //     FS.writeFileSync(`${__dirname}/compiledCad.pdf`, bytes);
-    //     expect(FS.existsSync(`${__dirname}/compiledCad.pdf`)).to.be.true;
-    //     done();
-
-    // });
-
-    // it('pdfManager compile client test 1', function (done) {
-    //     // const json = require('./compile_client_test_1/order.json');
-    //     // json = JSON.parse(json);
-    //     let bytes = pdfM.compile('test/compile_client_test_1');
-    //     expect(bytes).to.not.be.NaN;
-    //     if (bytes) {
-    //         FS.writeFileSync(`${__dirname}/compile_client_test_1.pdf`, bytes);
-    //     }
+    // it("Get Combined PDF: Successfully wrote to PDF", function (done) {
+    //     expect(createdPDF).to.be.true;
     //     done();
     // });
 
-    // it('pdfManager insert test 1: Single Page insert', function (done) {
-    //     this.timeout(5000);
-    //     let insert;
-    //     let into;
+    it("Test server response to unsupported pdfs");
 
-    //     const files = FS.readdirSync(`${__dirname}/insert_test_1`);
-    //     for (const file of files) {
-    //         if (file == 'exCAD.pdf') {
-    //             into = file;
-    //         }
-    //         if (file == 'singlePage.pdf') {
-    //             insert = file;
-    //         }
-    //     }
-    //     let bytes;
-    //     try {
-    //         bytes = pdfM.insert(insert, into, 2, 'test/insert_test_1');
-    //     } catch (err) {
-    //         console.log(err);
-    //         bytes = NaN;
-    //     }
-    //     expect(bytes).to.not.be.NaN;
-    //     if (bytes) {
-    //         FS.writeFileSync(`${__dirname}/insert_test_1.pdf`, bytes);
-    //     }
-    //     done();
-    // });
+    it("DwgImport: valid paths", function (done) {
+        this.timeout(10000);
+        chai.request(target)
+            .post('/dwgImport')
+            .set('Content-Type', 'application/json')
+            .send(dwgImportPosData)
+            .buffer()
+            .parse(binaryParser)
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(201);
 
-    // it('pdfManager insert test 2: Multiple Page insert', function (done) {
-    //     this.timeout(5000);
-    //     let insert;
-    //     let into;
+                let zip = new AdmZip(res.body);
+                const zipEntries = zip.getEntries();
+                expect(zipEntries.length).to.equal(6);
+                zip.extractAllTo(`${__dirname}`);
 
-    //     const files = FS.readdirSync(`${__dirname}/insert_test_2`);
-    //     for (const file of files) {
-    //         if (file == 'exCAD.pdf') {
-    //             into = file;
-    //         }
-    //         if (file == 'multiplePages.pdf') {
-    //             insert = file;
-    //         }
-    //     }
-    //     let bytes;
-    //     try {
-    //         bytes = pdfM.insert(insert, into, 2, 'test/insert_test_2');
-    //     } catch (err) {
-    //         console.log(err);
-    //         bytes = NaN;
-    //     }
-    //     expect(bytes).to.not.be.NaN;
-    //     if (bytes) {
-    //         FS.writeFileSync(`${__dirname}/insert_test_2.pdf`, bytes);
-    //     }
-    //     done();
-    // });
+                let batt = false;
+                let comp = false;
+                let intercon = false;
+                let meter = false;
+                let other = false;
+                let mntdet = false;
+                for (const file of zipEntries) {
 
-    // it('pdfManager insert test 3: Index Boundaries', function (done) {
-    //     this.timeout(5000);
-    //     let insert;
-    //     let into;
+                    switch (file.entryName) {
+                        case "batt.dwg":
+                            batt = true;
+                        case "company_logo.dwg":
+                            comp = true;
+                        case "interconnections.dwg":
+                            intercon = true;
+                        case "meter_boi.dwg":
+                            meter = true;
+                        case "other_sld.dwg":
+                            other = true;
+                        case "mounting_detail.dwg":
+                            mntdet = true;
+                    }
+                }
+                expect(batt && comp && intercon && meter && other && mntdet).to.be.true;
+                done();
+            });
+    });
+    it("DwgImport: invalid fileNames", function (done) {
+        this.timeout(5000);
+        //console.log(dwgImportPosData);
+        chai.request(target)
+            .post('/dwgImport')
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'text/plain')
+            .send(dwgImportNegData)
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res.text).to.equal('Server Error 101');
+                done();
+            });
+    });
 
-    //     const files = FS.readdirSync(`${__dirname}/insert_test_2`);
-    //     for (const file of files) {
-    //         if (file == 'exCAD.pdf') {
-    //             into = file;
-    //         }
-    //         if (file == 'multiplePages.pdf') {
-    //             insert = file;
-    //         }
-    //     }
-    //     let bytes;
-    //     try {
-    //         bytes = pdfM.insert(insert, into, 0, 'test/insert_test_2');
-    //     } catch (err) {
-    //         // console.log(err);
-    //         bytes = NaN;
-    //     }
-    //     expect(bytes).to.be.NaN;
-    //     try {
-    //         bytes = pdfM.insert(insert, into, 11, 'test/insert_test_2');
-    //     } catch (err) {
-    //         // console.log(err);
-    //         bytes = NaN;
-    //     }
-    //     expect(bytes).to.be.NaN;
-    //     done();
-    // });
+    it('pdfManager compile local test 1', function (done) {
+        this.timeout(5000);
+        firstPdf = `${__dirname}/compile_test_1/testCAD.pdf`;
+        const bytes = pdfM.compileLocal(firstPdf, testJson);
 
-    // it("server should remove local files related to request", function (done) {
+        FS.writeFileSync(`${__dirname}/compiledCad.pdf`, bytes);
+        expect(FS.existsSync(`${__dirname}/compiledCad.pdf`)).to.be.true;
+        done();
 
-    //     const dirs = getDirectories('./');
-    //     // console.log(dirs);
-    //     for (const dir of dirs) {
-    //         if (dir.includes("192.168")) {
-    //             expect(false).to.be.true;
-    //             done();
-    //         }
-    //     }
-    //     done();
-    // });
+    });
+
+    it('pdfManager compile client test 1', function (done) {
+        // const json = require('./compile_client_test_1/order.json');
+        // json = JSON.parse(json);
+        let bytes = pdfM.compile('test/compile_client_test_1');
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}/compile_client_test_1.pdf`, bytes);
+        }
+        done();
+    });
+
+    it('pdfManager insert test 1: Single Page insert', function (done) {
+        this.timeout(5000);
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}/insert_test_1`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'singlePage.pdf') {
+                insert = file;
+            }
+        }
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 2, 'test/insert_test_1');
+        } catch (err) {
+            console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}/insert_test_1.pdf`, bytes);
+        }
+        done();
+    });
+
+    it('pdfManager insert test 2: Multiple Page insert', function (done) {
+        this.timeout(5000);
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}/insert_test_2`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'multiplePages.pdf') {
+                insert = file;
+            }
+        }
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 2, 'test/insert_test_2');
+        } catch (err) {
+            console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.not.be.NaN;
+        if (bytes) {
+            FS.writeFileSync(`${__dirname}/insert_test_2.pdf`, bytes);
+        }
+        done();
+    });
+
+    it('pdfManager insert test 3: Index Boundaries', function (done) {
+        this.timeout(5000);
+        let insert;
+        let into;
+
+        const files = FS.readdirSync(`${__dirname}/insert_test_2`);
+        for (const file of files) {
+            if (file == 'exCAD.pdf') {
+                into = file;
+            }
+            if (file == 'multiplePages.pdf') {
+                insert = file;
+            }
+        }
+        let bytes;
+        try {
+            bytes = pdfM.insert(insert, into, 0, 'test/insert_test_2');
+        } catch (err) {
+            // console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.be.NaN;
+        try {
+            bytes = pdfM.insert(insert, into, 11, 'test/insert_test_2');
+        } catch (err) {
+            // console.log(err);
+            bytes = NaN;
+        }
+        expect(bytes).to.be.NaN;
+        done();
+    });
+
+    it("server should remove local files related to request", function (done) {
+
+        const dirs = getDirectories('./');
+        // console.log(dirs);
+        for (const dir of dirs) {
+            if (dir.includes("192.168")) {
+                expect(false).to.be.true;
+                done();
+            }
+        }
+        done();
+    });
 
     //************************************************************************************************ */
 
