@@ -13,7 +13,7 @@ module.exports = {
         let added = [];
         for (key in json) {
             let bytes;
-            const pdf = resolvePaths(json[key]);
+            const pdf = resolveSpecPaths(json[key]);
             let result = added.find(ele => ele == json[key]);
             if (FS.existsSync(pdf)) {
                 // console.log(`Exists: ${pdf}`);
@@ -89,7 +89,7 @@ module.exports = {
 
     // Takes in folder where pdfs are located
     // pdfs should be named as numbers to reflect order, starting from 1
-    // returns bytes of compiles pdf
+    // returns bytes of compiled pdf
     compile: (reqFolder) => {
         const files = FS.readdirSync(resolvePathFolder(reqFolder));
         let pdfDoc;
@@ -109,19 +109,40 @@ module.exports = {
         return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
     },
 
-    // FIXME: Complete this
     extractPages: (reqFolder, pdf, pgNumStr) => {
         let pdfDoc;
-        // parse with , deliminator
-        // parse range/single int
-        // create extracted pages
-        // 
+        let pages = [];
+        pdf = resolvePathFile(pdf, reqFolder);
+        const donorPDF = pdfLib.PDFDocumentFactory.load(FS.readFileSync(pdf));
+        const pgCount = donorPDF.getPages().length;
+        try {
+            pages = parsePageRange(pgNumStr, pgCount);
+        } catch (err) {
+            throw err;
+        }
+        if (pages.length > 0) {
+            
+            if (!pdf) throw "Missing pdf or pdf is invalid";
+            else {
+                // extract pages
+                pdfDoc = pdfLib.PDFDocumentFactory.create();
+                for (let i = 0; i < pages.length; ++i) {
+                    if (pages[i] < pgCount) {
+                        pdfDoc.addPage(donorPDF.getPages()[pages[i] - 1]);
+                    }
+                }
+            }
+            return pdfLib.PDFDocumentWriter.saveToBytes(pdfDoc);
+        }
+        else {
+            throw "Selected range returned no valid pages";
+        }
     }
 };
 
 
 
-function resolvePaths(fileName) {
+function resolveSpecPaths(fileName) {
     return `${__dirname}/../spec_sheets/${fileName}`;
 }
 function resolvePathFile(fileName, folder) {
@@ -129,4 +150,50 @@ function resolvePathFile(fileName, folder) {
 }
 function resolvePathFolder(folder) {
     return `${__dirname}/../${folder}`;
+}
+
+/**
+ * expect a string with multiple designations
+ * ex: "1,3,6-9" will send back and array of 
+ * 1,3,6,7,8,9
+ * @param {String} pgNumStr 
+ */
+function parsePageRange(pgNumStr, max) {
+    pgNumStr = pgNumStr.trim();
+    pgNumStr = pgNumStr.replace(/\s/g, '');
+    //console.log(pgNumStr);
+    let rx = /((([0-9]+\-[0-9]+)(\,)?)|(([0-9]+)(,)?))*/;
+    let strTest = rx.exec(pgNumStr)[0];
+    // console.log(pgNumStr, "vs", strTest);
+    if (pgNumStr != strTest) {
+        throw `Error: string should be of this form: ${rx}`;
+    }
+    let tokenArray = pgNumStr.split(",");
+    let pageArray = [];
+    // console.log(`Starting with ${tokenArray}`);
+    for (let i = 0; i < tokenArray.length; ++i) {
+        if (tokenArray[i].match(/[0-9]+\-[0-9]+/)) {
+            //console.log(tokenArray[i], "range");
+            let range = tokenArray[i].split("-");
+            if (range.length == 2) {
+                let start = parseInt(range[0]);
+                let end = parseInt(range[1]);
+                if (start < end) {
+                    for (let j = start; j <= end; ++j) {
+                        //console.log(`adding ${j}`)
+                        if (j != 0 && j <= max) {
+                            pageArray.push(j);
+                        }
+                    }
+                } else if (start == end && start != 0) {
+                    pageArray.push(start);
+                }
+            }
+        }
+        else if (tokenArray[i].match(/[0-9]+/) && tokenArray[i] != 0 && tokenArray[i] <= max) {
+            pageArray.push(tokenArray[i]);
+        }
+    }
+    // console.log(`Ending with ${pageArray}`);
+    return pageArray;
 }

@@ -8,6 +8,7 @@ const AdmZip = require('adm-zip');
 const path = require('path');
 const pdfM = require('../Managers/pdfManager');
 const INTERCON = require('../tools/interconnection');
+const FLDRMNGR = require('../Managers/folderManager');
 
 const testJson = require('./compile_test_1/specList.json');
 const interconTest1 = require('./interconTests/interconTest1.json');
@@ -23,6 +24,69 @@ var dwgImportPosData;
 var dwgImportNegData;
 
 describe("Server Functionality Test", () => {
+    it("Test extract pdf: 1", done => {
+        const testFolder = "test/extract_tests/ex1";
+        let bytes;
+        try {
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "1,3,6-9,2,10-13, 53,");
+        } catch (err) {
+            console.log(err);
+            expect(false).to.be.true;
+        }
+        // console.log(bytes);
+        expect(bytes).to.not.be.undefined;
+        done();
+    });
+    it("Test extract pdf: 2", done => {
+        const testFolder = "test/extract_tests/ex1";
+        let bytes;
+        try {
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", " 5   ,   3  ");
+        } catch (err) {
+            console.log(err);
+            expect(false).to.be.true;
+        }
+        expect(bytes).to.not.be.undefined;
+        done();
+    });
+    it("Test extract pdf: 3", done => {
+        const testFolder = "test/extract_tests/ex1";
+        let bytes;
+        try {
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "bullshit");
+        } catch (err) {
+            console.log(err);
+            expect(true).to.be.true;
+        }
+        expect(bytes).to.be.undefined;
+        done();
+    });
+    it("Test extract pdf: 4", done => {
+        const testFolder = "test/extract_tests/ex1";
+        let bytes;
+        try {
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "0, 0, 0");
+        } catch (err) {
+            console.log(err);
+            expect(true).to.be.true;
+        }
+        expect(bytes).to.be.undefined;
+        done();
+    });
+    it("Test extract pdf: 5", done => {
+        const testFolder = "test/extract_tests/ex1";
+        let bytes;
+        try {
+            bytes = pdfM.extractPages(testFolder, "5pgs.pdf", "0,6-30,  80");
+        } catch (err) {
+            console.log(err);
+            expect(true).to.be.true;
+        }
+        // FS.writeFileSync(`${__dirname}/extract.pdf`, bytes);
+        // expect(FS.existsSync(`${__dirname}/extract.pdf`)).to.be.true;
+        expect(bytes).to.be.undefined;
+        done();
+    });
     it("Test unhandled paths", done => {
         chai.request(target)
             .get('/unhandled')
@@ -88,13 +152,10 @@ describe("Server Functionality Test", () => {
     //             });
     //         });
     // });
-
     // it("Get Combined PDF: Successfully wrote to PDF", function (done) {
     //     expect(createdPDF).to.be.true;
     //     done();
     // });
-
-
 
     it("Test server response to unsupported pdfs");
 
