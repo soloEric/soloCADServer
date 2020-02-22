@@ -79,7 +79,12 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
 
     //create local folder
     let funcFolderName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}.dwgImport`;
-    FLDMNGR.createLocalFolder(funcFolderName);
+	try {
+		FLDMNGR.createLocalFolder(funcFolderName);
+	} catch (err) {
+		res.status(500);
+		res.send("Server Error 102");
+	}
 
     DWGIMP.moveDwgs(req.body, funcFolderName);
     if (FS.existsSync(funcFolderName)) {
