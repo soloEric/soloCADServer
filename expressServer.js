@@ -6,7 +6,7 @@ const DWGIMP = require('./tools/dwgImport');
 const PDFMNGR = require('./Managers/pdfManager')
 const INTERCON = require('./tools/interconnection');
 
-const HOST_NAME = '192.168.1.18';
+const HOST_NAME = '192.168.1.18'; // just for reference, will run on current host machine ip
 const PORT = '8080';
 
 
@@ -94,7 +94,7 @@ APP.route('/dwgImport').post(JSON_PARSER, function (req, res, next) {
                 zip.addLocalFile(PATH.join(`./${funcFolderName}`, file));
             }
             res.status(201);
-            res.set('Accept', MIME_TYPE['.zip']);
+            res.set('Content-Type', MIME_TYPE['.zip']);
             res.send(zip.toBuffer());
             LOGGER.log("Successfully Sent XREF Zip");
         }
@@ -149,7 +149,7 @@ APP.route('/pdfCombine').post(RAW_PARSER, function (req, res, next) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
-                    res.set('Content-Type', 'application/octet-stream');
+                    res.set('Content-Type', MIME_TYPE['.pdf']);
                     res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
@@ -208,7 +208,7 @@ APP.route('/pdfCombineClient').post(RAW_PARSER, function (req, res, next) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
-                    res.set('Content-Type', 'application/octet-stream');
+                    res.set('Content-Type', MIME_TYPE['.pdf']);
                     res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
@@ -288,7 +288,7 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     LOGGER.log(errMsg);
                 } if (bytes) {
                     res.status(201);
-                    res.set('Content-Type', 'application/octet-stream');
+                    res.set('Content-Type', MIME_TYPE['.pdf']);
                     res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
                     FLDMNGR.removeLocalFolder(newDir);
                 } else {
@@ -297,6 +297,76 @@ APP.route('/pdfInsert').post(RAW_PARSER, function (req, res, next) {
                     res.send('Server Error 404');
                     FLDMNGR.removeLocalFolder(newDir);
                     FLDMNGR.removeLocalFile(serverZipFileName);
+                }
+            }
+        });
+    } catch (err) {
+        LOGGER.log(err);
+    }
+});
+
+// expects a zip file with a target pdf and a json with the request string
+APP.route('/pdfExtract').post(RAW_PARSER, function (req, res, next) {
+    LOGGER.log(`\n${TIMESTAMP.stamp()}\n:: ${req.method} request from ${req.connection.remoteAddress} to /pdfExtract`);
+
+    let serverZipFileName = `${req.connection.remoteAddress.substring(7)}_${Date.now()}_pdfExtract.zip`
+    req.pipe(FS.createWriteStream(`${__dirname}/${serverZipFileName}`));
+    try {
+        FS.appendFile(`${__dirname}/${serverZipFileName}`, req.rawBody, function (err) {
+            if (err) {
+                res.status(500);
+                res.send("Server Error 601");
+                FLDMNGR.removeLocalFile(serverZipFileName);
+                return;
+            } else {
+                LOGGER.log(`Writing to file: ${serverZipFileName}`);
+
+                //unzip file
+                let newDir = __dirname + "/" + serverZipFileName.substring(0, serverZipFileName.length - 4);
+                let newDirName = serverZipFileName.substring(0, serverZipFileName.length - 4);
+                try {
+                    let zip = new AdmZip(`${__dirname}/${serverZipFileName}`);
+
+                    if (!FS.existsSync(newDir)) {
+                        FS.mkdirSync(newDir);
+                        zip.extractAllTo(newDir);
+                        FS.unlinkSync(__dirname + "/" + serverZipFileName);
+                    }
+                } catch (error) {
+                    res.status(500);
+                    res.send("Server Error 602");
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+                    FLDMNGR.removeLocalFolder(newDir);
+                    return;
+                }
+                let pdf;
+                let pgsStr;
+                const files = FS.readdirSync(newDir);
+                for (const file of files) {
+                    if (file.substr(file.length - 4) == '.pdf') {
+                        pdf = file;
+                    }
+                    if (file.substr(file.length - 5) == '.json') {
+                        let json = require(`./${newDirName}/${file}`)
+                        pgsStr = json['request'];
+                    }
+                }
+                let bytes;
+                try {
+                    bytes = PDFMNGR.extractPages(newDirName, pdf,pgsStr);
+                    FS.writeFileSync(newDir + '/sendThis.pdf', bytes);
+                } catch (errMsg) {
+                    LOGGER.log(errMsg);
+                    res.status(500);
+                    res.send(errMsg);
+                    FLDMNGR.removeLocalFolder(newDir);
+                    FLDMNGR.removeLocalFile(serverZipFileName);
+                    return;
+                } if (bytes) {
+                    res.status(201);
+                    res.set('Content-Type', MIME_TYPE['.pdf']);
+                    res.send(FS.readFileSync(newDir + '/sendThis.pdf'));
+                    FLDMNGR.removeLocalFolder(newDir);
                 }
             }
         });
