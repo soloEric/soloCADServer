@@ -1,31 +1,35 @@
 const FS = require('fs');
 
-const subpanel_add_in = "Subpanel Add In"
-const supply_side_breaker = "Supply Side Breaker"
-const main_panel_upgrade = "Main Panel Upgrade"
-const derated_main = "Derated Main Load Side Breaker"
-const load_side_breaker = "Load Side Breaker"
-const subpanel_breaker = "Subpanel Breaker"
-const redirected_main = "Re-directed Main"
-const meter_can_tap = "Meter Can Tap"
-const supply_tap = "Supply Side Tap"
-const load_side_tap = "Load Side Tap"
-const w_smm = "with Smart Management Module"
+const subpanel_add_in = "Subpanel Add In";
+const supply_side_breaker = "Supply Side Breaker";
+const main_panel_upgrade = "Main Panel Upgrade";
+const derated_main = "Derated Main Load Side Breaker";
+const load_side_breaker = "Load Side Breaker";
+const subpanel_breaker = "Subpanel Breaker";
+const redirected_main = "Re-directed Main";
+const meter_can_tap = "Meter Can Tap";
+const supply_tap = "Supply Side Tap";
+const load_side_tap = "Load Side Tap";
+const solar_ready = "Solar Ready Breaker";
+const w_smm = "with Smart Management Module";
+
 
 module.exports = {
 
     calculate: function (json) {
         // unpack json
+        // console.log(json);
 
-        let interconnections = interconnection_calc(json['xl_busbar'], json['xl_main_breaker'], 1.2, json['xl_pv_breaker'],
+        let interconnections = interconnection_calc(parseInt(json['xl_busbar']), parseInt(json['xl_main_breaker']), 1.2, parseInt(json['xl_pv_breaker']),
             stringToBoolean(json['xl_bsa_bool']), stringToBoolean(json['xl_mmc_bool']),
             stringToBoolean(json['xl_ahj_taps_bool']), stringToBoolean(json['xl_utility_taps_bool']),
             stringToBoolean(json['xl_meter_can_tap_bool']), stringToBoolean(json['xl_quad_bool']),
-            stringToBoolean(json['xl_sub_bsa_bool']), json['xl_sub_bus_input'],
-            json['xl_sub_main_input'], stringToBoolean(json['xl_main_breaker_only_bool']),
-            json['xl_wire_size_ampacity'], stringToBoolean(json['xl_existing_generator']));
+            stringToBoolean(json['xl_sub_bsa_bool']), parseInt(json['xl_sub_bus_input']),
+            parseInt(json['xl_sub_main_input']), stringToBoolean(json['xl_main_breaker_only_bool']),
+            parseInt(json['xl_wire_size_ampacity']), stringToBoolean(json['xl_existing_generator']), stringToBoolean(json['xl_solar_ready_slot']));
 
         // write out list of possible interconnections to list
+        // console.log(interconnections);
         return interconnections;
     }
 
@@ -43,7 +47,7 @@ function stringToBoolean(string) {
 
 function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_input, bsa_bool, mmc_bool, ahj_taps_bool,
     utility_taps_bool, meter_can_tap_bool, quad_bool, sub_bsa_bool, sub_bus_input, sub_main_input,
-    main_breaker_only_bool, wire_size_ampacity, gen_input_bool) {
+    main_breaker_only_bool, wire_size_ampacity, gen_input_bool, solar_ready_bool) {
 
     const interconnections = [];
 
@@ -53,6 +57,9 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
     let main_breaker_100_bool = main_breaker_100(main_breaker)
     let derate_bool = derate_main(bus_input, main_breaker, factor_input, pv_breaker_input)
     let load_side_tap_bool = F_load_side_tap(wire_size_ampacity, main_breaker, pv_breaker_input)
+
+    if (main_breaker_only_bool) bsa_bool = false;
+    if (solar_ready_bool) interconnections.push(solar_ready);
     if (six_bool) {
         interconnections.push(six_disco(pv_breaker_input, bus_input, bsa_bool));
     }
@@ -68,7 +75,7 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
                 interconnections.push(`${main_panel_upgrade} 3`);
             }
         } else {
-            interconnections.push(load_side_breaker);
+            if (!six_bool) interconnections.push(load_side_breaker);
         }
     } else {
         if (quad_bool) {
@@ -122,9 +129,11 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
     if (meter_can_tap_bool) {
         interconnections.push(meter_can_tap);
     } else {
-        if (ahj_taps_bool) {
-            if (utility_taps_bool) {
-                interconnections.push(supply_tap);
+        if (!mmc_bool) {
+            if (ahj_taps_bool) {
+                if (utility_taps_bool) {
+                    interconnections.push(supply_tap);
+                }
             }
         }
     }
@@ -136,7 +145,7 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
         replace_list_item(interconnections, subpanel_add_in, `${subpanel_add_in} ${w_smm}`);
         replace_list_item(interconnections, load_side_tap, `${load_side_tap} ${w_smm}`);
     }
-    return interconnections;
+    return Array.from(new Set(interconnections));
 }
 
 function sad(bus_input, main_breaker, factor_input, pv_breaker_input) {
@@ -169,30 +178,32 @@ function max_pv_breaker_calc(bus_input, main_breaker, factor_input) {
     }
     return max_breaker; // FIXME: check this: should be a float
 }
-
+// true if suggested ocpd is 100 or more
 function derate_main(bus_input, main_breaker, factor_input, pv_breaker_input) {
-    let first_step = main_breaker - 25;
+    const standard_sizes = [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125,
+        150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600,
+        2000, 2500, 3000, 4000, 5000, 6000];
 
-    //  sad() returns true/false, not a number
-    //  so the if statements should be "if first_derate_sad:" (is true)
-    //  also these steps only work for breakers up to 250A
-    //  Standard sizes are [15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125,
-    //  150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600
-    //  2000, 2500, 3000, 4000, 5000, 6000]
-    //  so if "derate_sad in standard_sizes" then...
+    let i = standard_sizes.indexOf(parseInt(main_breaker));
+    let my_ocpd = standard_sizes[i];
 
-    let first_derate_sad = sad(bus_input, first_step, factor_input, pv_breaker_input);
-    let second_step = main_breaker - 50;
-    let second_derate_sad = sad(bus_input, second_step, factor_input, pv_breaker_input);
-    if (first_derate_sad >= 0) {
-        return true;
+    // do sad calc on ocpd is less than 0
+    // decrement the index until sad calc returns greater than 0
+    // if sad returns false exit the loop 
+    let success = false;
+    while (my_ocpd > 100) {
+        if (!sad(parseInt(bus_input), my_ocpd, factor_input, parseInt(pv_breaker_input))) {
+            success = true;
+            break;
+        } else {
+            // decrement index
+            --i;
+            my_ocpd = standard_sizes[i];
+        }
     }
-    else if (second_derate_sad >= 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
+
+    if (success) return true;
+    else return false;
 }
 
 // This is redundant
