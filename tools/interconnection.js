@@ -1,5 +1,3 @@
-const FS = require('fs');
-
 const subpanel_add_in = "Subpanel Add In";
 const supply_side_breaker = "Supply Side Breaker";
 const main_panel_upgrade = "Main Panel Upgrade";
@@ -12,6 +10,7 @@ const supply_tap = "Supply Side Tap";
 const load_side_tap = "Load Side Tap";
 const solar_ready = "Solar Ready Breaker";
 const w_smm = "with Smart Management Module";
+const w_six_disco = "6 disco";
 
 
 module.exports = {
@@ -28,8 +27,6 @@ module.exports = {
             parseInt(json['xl_sub_main_input']), stringToBoolean(json['xl_main_breaker_only_bool']),
             parseInt(json['xl_wire_size_ampacity']), stringToBoolean(json['xl_existing_generator']), stringToBoolean(json['xl_solar_ready_slot']));
 
-        // write out list of possible interconnections to list
-        // console.log(interconnections);
         return interconnections;
     }
 
@@ -45,18 +42,39 @@ function stringToBoolean(string) {
     }
 }
 
+// returns array of strings of interconnection callouts
+/**
+ * 
+ * @param {Integer} bus_input 
+ * @param {Integer} main_breaker 
+ * @param {Float (const value)} factor_input 
+ * @param {Integer} pv_breaker_input 
+ * @param {boolean} bsa_bool 
+ * @param {boolean} mmc_bool 
+ * @param {boolean} ahj_taps_bool 
+ * @param {boolean} utility_taps_bool 
+ * @param {boolean} meter_can_tap_bool 
+ * @param {boolean} quad_bool 
+ * @param {boolean} sub_bsa_bool 
+ * @param {Integer} sub_bus_input 
+ * @param {Integer} sub_main_input 
+ * @param {Boolean} main_breaker_only_bool 
+ * @param {Integer} wire_size_ampacity 
+ * @param {Boolean} gen_input_bool 
+ * @param {Boolean} solar_ready_bool 
+ */
 function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_input, bsa_bool, mmc_bool, ahj_taps_bool,
     utility_taps_bool, meter_can_tap_bool, quad_bool, sub_bsa_bool, sub_bus_input, sub_main_input,
     main_breaker_only_bool, wire_size_ampacity, gen_input_bool, solar_ready_bool) {
 
     const interconnections = [];
 
-    let sad_bool = sad(bus_input, main_breaker, factor_input, pv_breaker_input)
-    let sub_sad_bool = sad(sub_bus_input, sub_main_input, factor_input, pv_breaker_input)
-    let six_bool = six_handle(main_breaker)
-    let main_breaker_100_bool = main_breaker_100(main_breaker)
-    let derate_bool = derate_main(bus_input, main_breaker, factor_input, pv_breaker_input)
-    let load_side_tap_bool = F_load_side_tap(wire_size_ampacity, main_breaker, pv_breaker_input)
+    const sad_bool = sad(bus_input, main_breaker, factor_input, pv_breaker_input)
+    const sub_sad_bool = sad(sub_bus_input, sub_main_input, factor_input, pv_breaker_input)
+    const six_bool = six_handle(main_breaker)
+    const main_breaker_100_bool = main_breaker_100(main_breaker)
+    const derate_bool = derate_main(bus_input, main_breaker, factor_input, pv_breaker_input)
+    const load_side_tap_bool = F_load_side_tap(wire_size_ampacity, main_breaker, pv_breaker_input)
 
     if (main_breaker_only_bool) bsa_bool = false;
     if (solar_ready_bool) interconnections.push(solar_ready);
@@ -84,8 +102,6 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
             if (sub_bsa_bool) {
                 if (sub_sad_bool) {
                     if (!mmc_bool) {
-                        // I changed this line from the python
-                        // FIXME: check it works correctly
                         interconnections.push(supply_side_tap(ahj_taps_bool, utility_taps_bool));
                     } else {
                         interconnections.push(`${main_panel_upgrade} 4`);
@@ -137,6 +153,11 @@ function interconnection_calc(bus_input, main_breaker, factor_input, pv_breaker_
             }
         }
     }
+    if (six_bool) {
+        replace_list_item(interconnections, supply_tap, `${supply_tap} ${w_six_disco}`);
+        replace_list_item(interconnections, subpanel_add_in, `${subpanel_add_in} ${w_six_disco}`);
+        replace_list_item(interconnections, meter_can_tap, `${meter_can_tap} ${w_six_disco}`);
+    }
     if (gen_input_bool) {
         replace_list_item(interconnections, load_side_breaker, `${load_side_breaker} ${w_smm}`);
         replace_list_item(interconnections, derated_main, `${derated_main} ${w_smm}`);
@@ -158,15 +179,8 @@ function sad(bus_input, main_breaker, factor_input, pv_breaker_input) {
     }
 }
 
-// FIXME:: TEST  TYPE(TYPE_TEST) BEING NAN/undefined
-function none_type_det(type_test) {
-    if (type_test == undefined) {
-        return false;
-    }
-}
-
 // another name for "max breaker" is Solar Availability
-// FIXME: CHANGED PYTHON GLOBAL KEYWORD TO BE LET MAX_BREAKER
+// returns float
 function max_pv_breaker_calc(bus_input, main_breaker, factor_input) {
     let max_breaker;
     if (main_breaker == 0) {
@@ -176,7 +190,7 @@ function max_pv_breaker_calc(bus_input, main_breaker, factor_input) {
         let adjusted_bus = bus_input * factor_input;
         max_breaker = adjusted_bus - main_breaker;
     }
-    return max_breaker; // FIXME: check this: should be a float
+    return max_breaker;
 }
 // true if suggested ocpd is 100 or more
 function derate_main(bus_input, main_breaker, factor_input, pv_breaker_input) {
@@ -206,16 +220,6 @@ function derate_main(bus_input, main_breaker, factor_input, pv_breaker_input) {
     else return false;
 }
 
-// This is redundant
-// function generator_on_site(gen_input_bool) {
-//     if (gen_input_bool) {
-//         return true;
-//     }
-//     else {
-//         return false;
-//     }
-// }
-
 function six_handle(main_breaker) {
     if (main_breaker == 0) {
         return true;
@@ -224,22 +228,6 @@ function six_handle(main_breaker) {
         return false;
     }
 }
-
-function supply_side_tap_det(mmc_bool, ahj_taps_bool, utility_taps_bool, meter_can_tap_bool) {
-    if (meter_can_tap_bool) {
-        return meter_can_tap;
-    }
-    else {
-        if (!mmc_bool) {
-            if (ahj_taps_bool) {
-                if (utility_taps_bool) {
-                    return supply_tap;
-                }
-            }
-        }
-    }
-}
-
 
 function main_breaker_100(main_breaker) {
     if (main_breaker > 100) {
@@ -250,7 +238,6 @@ function main_breaker_100(main_breaker) {
     }
 }
 
-// FIXME: check that == undefined is working properly
 function F_load_side_tap(wire_size_ampacity, main_breaker, pv_breaker_input) {
     let total_current = pv_breaker_input + main_breaker;
     if (wire_size_ampacity == undefined) {
@@ -294,8 +281,6 @@ function supply_side_tap(ahj_taps_bool_input, utility_taps_bool_input) {
         return main_panel_upgrade;
     }
 }
-
-// FIXME: check this is working correctly
 function replace_list_item(some_list, item_to_be_replaced, new_item) {
 
     for (let i = 0; i < some_list.length; ++i) {

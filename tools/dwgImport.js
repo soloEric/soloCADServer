@@ -53,7 +53,7 @@ module.exports = {
             labels_path
         ];
 
-        copyFiles(dwg_path_list, dest)
+        copyFiles(dwg_path_list, dest);
     }
 }
 
